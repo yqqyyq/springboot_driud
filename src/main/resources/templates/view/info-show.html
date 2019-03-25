@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<title>WebChat | 个人信息</title>
+<head>
+    <link rel="icon" href="/static/foc/index.ico" type="image/x-icon"/>
+    <div th:replace="include/common::common"/>
+</head>
+<body>
+<div th:replace="include/header::common"/>
+<div class="am-cf admin-main">
+    <div th:replace="include/sidebar::common"/>
+    <div class="admin-content">
+        <div class="am-cf am-padding">
+            <div class="am-fl am-cf">
+                <strong class="am-text-primary am-text-lg">个人信息</strong> /
+                <small>info</small>
+            </div>
+        </div>
+        <div class="am-tabs am-margin" data-am-tabs>
+            <ul class="am-tabs-nav am-nav am-nav-tabs">
+                <li class="am-active"><a href="#tab1">个人信息</a></li>
+            </ul>
+            <div class="am-tabs-bd">
+                <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                    <div class="am-g">
+                        <div class="am-u-md-3">
+                            <b>昵称:</b>
+                        </div>
+                        <div class="am-u-md-3" th:text="${user.nickname}"></div>
+                        <div class="am-u-md-6" style="float: right">
+                            <img class="am-circle"
+                                 th:src="@{'/pic/'+${user.profilehead}+''}"
+                                 width="140" height="140" th:alt="${user.nickname}"/>
+                        </div>
+
+                        <div class="am-u-md-3">
+                            <b>性别:</b>
+                        </div>
+                        <div class="am-u-md-3" th:text="${user.sex}">
+                        </div>
+                        <div class="am-u-md-3">
+                            <b>年龄:</b>
+                        </div>
+                        <div class="am-u-md-3" th:text="${user.age}"/>
+                        <div class="am-u-md-3">
+                            <b>简介:</b>
+                        </div>
+                        <div class="am-u-md-3" th:text="${user.profile}"/>
+                        <div class="am-u-md-3">
+                            <b>注册时间</b>
+                        </div>
+                        <div class="am-u-md-3" th:text="${user.firsttime}"/>
+                        <div class="am-u-md-3">
+                            <b>最后登录</b>
+                        </div>
+                        <div class="am-u-md-3" th:text="${user.lasttime}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="am-show-sm-only admin-menu"
+       data-am-offcanvas="{target: '#admin-offcanvas'}"> <span
+            class="am-icon-btn am-icon-th-list"></span>
+    </a>
+</div>
+<div th:replace="include/footer::common"/>
+</body>
+</html>

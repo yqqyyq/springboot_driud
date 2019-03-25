@@ -1,0 +1,26 @@
+spring:
+  profiles:
+    active: dev
+  thymeleaf:
+    prefix: classpath:/templates/view/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+
+#公共配置与profiles选择无关
+## MyBatis的相关配置
+mybatis:
+  # 映射文件位置
+  mapper-locations: classpath:mapper/*.xml
+  # 别名扫描包
+  type-aliases-package: com.xxx.pojo
+  # 输出SQL执行语句
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

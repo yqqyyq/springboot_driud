@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>WebChat | 上传</title>
+    <link rel="icon" href="/static/foc/index.ico" type="image/x-icon"/>
+    <div th:include="include/common::common"/>
+</head>
+<body>
+<div th:replace="include/header::common"/>
+<div class="am-cf admin-main">
+    <div th:replace="include/sidebar::common"/>
+    <span style="color: red;" th:text="${msg}"></span>
+    <form action="./uploadfile" method="post"
+          enctype="multipart/form-data" onsubmit="return check()">
+        <input type="file" name="file" id="file" multiple="multiple"><br>
+        <input type="submit" value="上传">
+    </form>
+</div>
+<div th:replace="include/footer::common"/>
+<script>
+    function check() {
+        var file = document.getElementById("file");
+        if (file.value == "") {
+            alert("上传的文件为空")
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<title>WebChat | 下载</title>
+<link rel="icon" href="/static/foc/index.ico" type="image/x-icon"/>
+<div th:replace="include/common::common"/>
+<style type="text/css">
+    table.gridtable {
+        font-family: verdana, arial, sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+
+    table.gridtable th {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+
+    table.gridtable td {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
+    }
+</style>
+</head>
+<body>
+<div th:replace="include/header::common"/>
+<div class="am-cf admin-main">
+    <div th:replace="include/sidebar::common"/>
+    <div>
+        <table class="gridtable" style="width: 500px; margin: 0 auto;">
+            <thead>
+            <tr>
+                <th>文件</th>
+                <th>用户</th>
+                <th>大小</th>
+                <th>时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="sqlTables">
+            </tbody>
+        </table>
+    </div>
+</div>
+<div th:replace="include/footer::common"/>
+<script>
+    $(function () {
+        $.ajax({
+            url: "filelist",
+            dataType: "json",
+            success: function (data) {
+                for (var i in data) {
+                    $("#sqlTables").append("<tr><td>" + data[i].filename + "</td><td>"
+                        + data[i].fileuser + "</td><td>"
+                        + data[i].filesize + "</td><td>"
+                        + data[i].filetime + "</td><td>"
+                        + "<a href ='./downfile?filename=" + encodeURIComponent(data[i].filename) + "'>下载</a></td><tr>");
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
