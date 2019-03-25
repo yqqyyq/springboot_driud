@@ -9,7 +9,7 @@
 <div class="am-cf admin-main">
     <div th:replace="include/sidebar::common"/>
     <span style="color: red;" th:text="${msg}"></span>
-    <form action="./uploadfile" method="post"
+    <form th:action="@{'/uploadfile/'+${session.userid}+''}" method="post"
           enctype="multipart/form-data" onsubmit="return check()">
         <input type="file" name="file" id="file" multiple="multiple"><br>
         <input type="submit" value="上传">

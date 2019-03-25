@@ -3,6 +3,7 @@ package com.xxx.controller;
 import com.xxx.pojo.User;
 import com.xxx.service.UserService;
 import net.sf.json.JSONObject;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,15 +17,16 @@ import sun.misc.BASE64Decoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.UUID;
 
 @Controller
 public class UserController {
 
-	private static final String IMG_PATH="/Users/yuqi/yqqyyqspace/spring/WebChat/src/main/webapp/static/upload/img/";
+    private static Logger logger = Logger.getLogger(UserController.class);
+
+
+    private static final String IMG_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/upload/img/";
 	
     @Autowired
     private UserService userService;
@@ -36,7 +38,7 @@ public class UserController {
      * @param response
      * @return
      */
-    @RequestMapping("/{userid}/head")
+    @RequestMapping("/head/{userid}")
     @ResponseBody
     public User head(@PathVariable("userid") String userid, HttpServletRequest request, HttpServletResponse response){
         User user = userService.getUserById(userid);
@@ -48,7 +50,7 @@ public class UserController {
      * @param userid
      * @return
      */
-    @RequestMapping(value = "/{userid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/info/{userid}", method = RequestMethod.GET)
     public ModelAndView toInformation(@PathVariable("userid") String userid){
         ModelAndView view = new ModelAndView("info-show");
         User user = userService.getUserById(userid);
@@ -61,7 +63,7 @@ public class UserController {
      * @param userid
      * @return
      */
-    @RequestMapping(value = "{userid}/config")
+    @RequestMapping(value = "/config/{userid}")
     public ModelAndView setting(@PathVariable("userid") String userid){
         ModelAndView view = new ModelAndView("info-set");
         User user = userService.getUserById(userid);
@@ -76,7 +78,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "{userid}/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/{userid}", method = RequestMethod.POST)
     public String updateUser(@PathVariable("userid") String userid, HttpSession session, User user, RedirectAttributes attributes, HttpServletRequest request){
         int flag = userService.updateUser(user);
         if(flag > 0){
@@ -88,7 +90,7 @@ public class UserController {
         }else{
             attributes.addFlashAttribute("error", "["+userid+"]资料更新失败!");
         }
-        return "redirect:/{userid}/config";
+        return "redirect:/config/{userid}";
     }
 
     /**
@@ -100,7 +102,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "{userid}/pass", method = RequestMethod.POST)
+    @RequestMapping(value = "/pass/{userid}", method = RequestMethod.POST)
     public String updateUserPassword(@PathVariable("userid") String userid,String oldpass, String newpass, RedirectAttributes attributes,HttpServletRequest request){
         User user = userService.getUserById(userid);
         if(oldpass.equals(user.getPassword())){
@@ -116,15 +118,15 @@ public class UserController {
         }else{
             attributes.addFlashAttribute("error", "原密码错误!");
         }
-        return "redirect:/{userid}/config";
+        return "redirect:/config/{userid}";
     }
 
-    @RequestMapping(value = "{userid}/upload", method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/uppic/{userid}", method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String updateUserPassword(@PathVariable("userid") String userid,String image,HttpServletRequest request){
 
         JSONObject responseJson = new JSONObject();
-        String filePath = IMG_PATH;
+        String filePath = IMG_PATH+userid+"/";
         String PicName= UUID.randomUUID().toString()+".png";
 
         String header ="data:image";
@@ -157,14 +159,45 @@ public class UserController {
                     responseJson.put("msg","上传失败！");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                responseJson.put("result","error");
+                responseJson.put("msg","上传失败！");
             }
         }
 
         responseJson.put("result","ok");
         responseJson.put("msg","上传成功！");
-        responseJson.put("fileUrl","/static/upload/img/" + PicName);
+        responseJson.put("fileUrl","/static/upload/img/"+userid+"/" + PicName);
         return responseJson.toString();
+    }
+
+    @RequestMapping(value = "/pic/{profilehead}", method = RequestMethod.GET)
+    public void pic(@PathVariable("profilehead") String profilehead,
+                    HttpServletRequest request, HttpServletResponse response) {
+
+        String fileName = IMG_PATH + request.getSession().getAttribute("userid")+"/"+profilehead;
+        logger.info("[pic] fileName = " + profilehead + ", status = show");
+        File filepath = new File(fileName);
+        FileInputStream inputStream;
+        if (!filepath.exists()) {
+            fileName = IMG_PATH + "default_head.jpg";
+        }
+        try {
+            inputStream = new FileInputStream(fileName);
+            int available = inputStream.available();
+            byte[] data = new byte[available];
+            inputStream.read(data);
+            inputStream.close();
+
+            response.setCharacterEncoding("UTF-8");
+            OutputStream os = new BufferedOutputStream(response.getOutputStream());
+            os.write(data);
+            logger.info("[pic] data = " + profilehead + ", status = show");
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

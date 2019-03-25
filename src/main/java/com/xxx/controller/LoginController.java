@@ -38,7 +38,7 @@ public class LoginController {
     /**
      * 用户登录
      */
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(String userid, String password, HttpSession session, RedirectAttributes attributes,HttpServletRequest request) {
         logger.info("userid|"+userid);
         User user = userService.getUserById(userid);

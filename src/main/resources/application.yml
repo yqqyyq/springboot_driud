@@ -13,6 +13,11 @@ spring:
     static-path-pattern: /static/**
   resources:
     static-locations: classpath:/static/
+  servlet:
+    multipart:
+      enabled: true
+      resolve-lazily: true
+      max-file-size: 50MB
 
 #公共配置与profiles选择无关
 ## MyBatis的相关配置

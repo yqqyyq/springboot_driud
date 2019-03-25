@@ -1,33 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <title>WebChat | 下载</title>
 <link rel="icon" href="/static/foc/index.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="/static/plugins/amaze/css/app.css">
 <div th:replace="include/common::common"/>
-<style type="text/css">
-    table.gridtable {
-        font-family: verdana, arial, sans-serif;
-        font-size: 11px;
-        color: #333333;
-        border-width: 1px;
-        border-color: #666666;
-        border-collapse: collapse;
-    }
-
-    table.gridtable th {
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #666666;
-        background-color: #dedede;
-    }
-
-    table.gridtable td {
-        border-width: 1px;
-        padding: 8px;
-        border-style: solid;
-        border-color: #666666;
-        background-color: #ffffff;
-    }
-</style>
 </head>
 <body>
 <div th:replace="include/header::common"/>
@@ -61,7 +36,7 @@
                         + data[i].fileuser + "</td><td>"
                         + data[i].filesize + "</td><td>"
                         + data[i].filetime + "</td><td>"
-                        + "<a href ='./downfile?filename=" + encodeURIComponent(data[i].filename) + "'>下载</a></td><tr>");
+                        + "<a href ='./downfile?filename=" + data[i].fileuser+"/"+encodeURIComponent(data[i].filename) + "'>下载</a></td><tr>");
                 }
             }
         })

@@ -237,7 +237,6 @@
             $("#message").val("");  //清空输入区
             var chat = $("#chat-view");
             chat.scrollTop(chat[0].scrollHeight);   //让聊天区始终滚动到最下面
-
         });
     }
 
@@ -260,7 +259,6 @@
      * 添加接收人
      */
     function addChat(username) {
-
         var name = username.split(",");
 
         var sendToVal = $("#sendToVal");
