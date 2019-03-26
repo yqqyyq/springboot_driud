@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxx.dao.QuartzDao">
+
+    <select id="listQuartzPojo" resultType="com.xxx.pojo.QuartzPojo">
+        SELECT
+	job.JOB_NAME AS jobName,
+	job.JOB_GROUP AS jobGroup,
+	job.DESCRIPTION AS description,
+	job.JOB_CLASS_NAME AS jobClassName,
+	cron.CRON_EXPRESSION AS cronExpression,
+	tri.TRIGGER_NAME AS triggerName,
+	tri.TRIGGER_STATE AS triggerState,
+	job.JOB_NAME AS oldJobName,
+	job.JOB_GROUP AS oldJobGroup
+FROM
+	QRTZ_JOB_DETAILS AS job
+	LEFT JOIN QRTZ_TRIGGERS AS tri ON job.JOB_NAME = tri.JOB_NAME
+	LEFT JOIN QRTZ_CRON_TRIGGERS AS cron ON cron.TRIGGER_NAME = tri.TRIGGER_NAME
+WHERE
+	tri.TRIGGER_TYPE = 'CRON'
+    </select>
+
+    <select id="listQuartzPojoCount" resultType="java.lang.Long">
+        SELECT
+	COUNT( * )
+FROM
+	QRTZ_JOB_DETAILS AS job
+	LEFT JOIN QRTZ_TRIGGERS AS tri ON job.JOB_NAME = tri.JOB_NAME
+	LEFT JOIN QRTZ_CRON_TRIGGERS AS cron ON cron.TRIGGER_NAME = tri.TRIGGER_NAME
+WHERE
+	tri.TRIGGER_TYPE = 'CRON'
+    </select>
+
+</mapper>

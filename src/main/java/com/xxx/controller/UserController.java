@@ -1,6 +1,6 @@
 package com.xxx.controller;
 
-import com.xxx.pojo.User;
+import com.xxx.pojo.UserPojo;
 import com.xxx.service.UserService;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
@@ -40,8 +40,8 @@ public class UserController {
      */
     @RequestMapping("/head/{userid}")
     @ResponseBody
-    public User head(@PathVariable("userid") String userid, HttpServletRequest request, HttpServletResponse response){
-        User user = userService.getUserById(userid);
+    public UserPojo head(@PathVariable("userid") String userid, HttpServletRequest request, HttpServletResponse response){
+        UserPojo user = userService.getUserById(userid);
         return user;
     }
 
@@ -53,7 +53,7 @@ public class UserController {
     @RequestMapping(value = "/info/{userid}", method = RequestMethod.GET)
     public ModelAndView toInformation(@PathVariable("userid") String userid){
         ModelAndView view = new ModelAndView("info-show");
-        User user = userService.getUserById(userid);
+        UserPojo user = userService.getUserById(userid);
         view.addObject("user",user);
         return view;
     }
@@ -66,7 +66,7 @@ public class UserController {
     @RequestMapping(value = "/config/{userid}")
     public ModelAndView setting(@PathVariable("userid") String userid){
         ModelAndView view = new ModelAndView("info-set");
-        User user = userService.getUserById(userid);
+        UserPojo user = userService.getUserById(userid);
         view.addObject("user", user);
         return view;
     }
@@ -79,7 +79,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/update/{userid}", method = RequestMethod.POST)
-    public String updateUser(@PathVariable("userid") String userid, HttpSession session, User user, RedirectAttributes attributes, HttpServletRequest request){
+    public String updateUser(@PathVariable("userid") String userid, HttpSession session, UserPojo user, RedirectAttributes attributes, HttpServletRequest request){
         int flag = userService.updateUser(user);
         if(flag > 0){
             user = userService.getUserById(userid);
@@ -104,7 +104,7 @@ public class UserController {
      */
     @RequestMapping(value = "/pass/{userid}", method = RequestMethod.POST)
     public String updateUserPassword(@PathVariable("userid") String userid,String oldpass, String newpass, RedirectAttributes attributes,HttpServletRequest request){
-        User user = userService.getUserById(userid);
+        UserPojo user = userService.getUserById(userid);
         if(oldpass.equals(user.getPassword())){
             user.setPassword(newpass);
             int flag = userService.updateUser(user);
@@ -148,7 +148,7 @@ public class UserController {
                 out.write(decodedBytes); //利用文件输出器将二进制格式decodedBytes输出
                 out.close();
                 // 修改图片
-                User user = userService.getUserById(userid);
+                UserPojo user = userService.getUserById(userid);
                 user.setProfilehead(PicName);
                 int flag = userService.updateUser(user);
                 if(flag > 0){

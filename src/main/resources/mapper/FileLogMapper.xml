@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xxx.dao.FileLogDao">
-    <resultMap id="BaseResultMap" type="com.xxx.pojo.FileLog">
+    <resultMap id="BaseResultMap" type="com.xxx.pojo.FileLogPojo">
         <id column="filename" property="filename" jdbcType="VARCHAR"/>
         <result column="filesize" property="filesize" jdbcType="VARCHAR"/>
         <result column="fileuser" property="fileuser" jdbcType="VARCHAR"/>
@@ -21,13 +21,13 @@
     delete from chat_file_log
     where filename = #{filename,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" parameterType="com.xxx.pojo.FileLog">
+    <insert id="insert" parameterType="com.xxx.pojo.FileLogPojo">
     insert into chat_file_log (filename, filesize, fileuser,
       filetime, filetype)
     values (#{filename,jdbcType=VARCHAR}, #{filesize,jdbcType=VARCHAR}, #{fileuser,jdbcType=VARCHAR},
       #{filetime,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.xxx.pojo.FileLog">
+    <insert id="insertSelective" parameterType="com.xxx.pojo.FileLogPojo">
         insert into chat_file_log
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="filename != null">
@@ -64,7 +64,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.xxx.pojo.FileLog">
+    <update id="updateByPrimaryKeySelective" parameterType="com.xxx.pojo.FileLogPojo">
         update chat_file_log
         <set>
             <if test="filesize != null">
@@ -82,7 +82,7 @@
         </set>
         where filename = #{filename,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.xxx.pojo.FileLog">
+    <update id="updateByPrimaryKey" parameterType="com.xxx.pojo.FileLogPojo">
     update chat_file_log
     set filesize = #{filesize,jdbcType=VARCHAR},
       fileuser = #{fileuser,jdbcType=VARCHAR},

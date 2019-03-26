@@ -1,6 +1,6 @@
 package com.xxx.websocket.bio2;
 
-import com.xxx.pojo.User;
+import com.xxx.pojo.UserPojo;
 import com.xxx.utils.CommonDate;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
@@ -39,7 +39,7 @@ public class ChatServer {
 
         // 获取当前用户的session
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-        User user  = (User) httpSession.getAttribute("user"); // 获得当前用户信息
+        UserPojo user  = (UserPojo) httpSession.getAttribute("user"); // 获得当前用户信息
 
         // 将当前用户存到在线用户列表中
         OnlineUser onlineUser = new OnlineUser(user.getUserid(),user.getNickname(),session);

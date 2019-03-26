@@ -1,6 +1,6 @@
 package com.xxx.controller;
 
-import com.xxx.pojo.FileLog;
+import com.xxx.pojo.FileLogPojo;
 import com.xxx.service.FileLogService;
 import com.xxx.utils.CommonDate;
 import org.apache.commons.io.FileUtils;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -38,27 +37,6 @@ public class FileController {
     @Autowired
     private FileLogService fileLogService;
 
-    @RequestMapping(value = "/about")
-    public String about() {
-        return "about";
-    }
-
-    @RequestMapping(value = "/system")
-    public String system() {
-        return "system-setting";
-    }
-
-    @RequestMapping(value = "/upload")
-    public String upload() {
-        return "upload";
-    }
-
-    @RequestMapping("/chat")
-    public ModelAndView getIndex(){
-        ModelAndView mv = new ModelAndView("chat");
-        return mv;
-    }
-
     @RequestMapping(value = "/uploadfile/{userid}")
     public String uploadfile(@RequestParam("file") MultipartFile file,@PathVariable("userid") String userid,
                              HttpServletRequest request) {
@@ -75,7 +53,7 @@ public class FileController {
             try {
                 file.transferTo(new File(storePath + File.separator + fileName));//把文件写入目标文件地址
                 fileLogService.deleteByPrimaryKey(fileName);
-                FileLog fileLog = new FileLog();
+                FileLogPojo fileLog = new FileLogPojo();
                 fileLog.setFilename(fileName);
                 fileLog.setFileuser(userid);
                 fileLog.setFiletime(CommonDate.getTime24());
@@ -114,8 +92,8 @@ public class FileController {
 
     @RequestMapping(value = "/filelist")
     @ResponseBody
-    public List<FileLog> filelist() {
-        List<FileLog> fileLogs = fileLogService.selectAll();
+    public List<FileLogPojo> filelist() {
+        List<FileLogPojo> fileLogs = fileLogService.selectAll();
         return fileLogs;
     }
 

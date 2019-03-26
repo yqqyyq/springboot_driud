@@ -1,7 +1,7 @@
 package com.xxx.controller;
 
 
-import com.xxx.pojo.User;
+import com.xxx.pojo.UserPojo;
 import com.xxx.service.UserService;
 import com.xxx.utils.CommonDate;
 import com.xxx.utils.WordDefined;
@@ -41,7 +41,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(String userid, String password, HttpSession session, RedirectAttributes attributes,HttpServletRequest request) {
         logger.info("userid|"+userid);
-        User user = userService.getUserById(userid);
+        UserPojo user = userService.getUserById(userid);
         logger.info("user|"+user);
         if(user == null){
             attributes.addFlashAttribute("error",WordDefined.LOGIN_USERID_ERROR);

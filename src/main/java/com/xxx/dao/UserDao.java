@@ -1,19 +1,21 @@
 package com.xxx.dao;
 
-import com.xxx.pojo.User;
+import com.xxx.pojo.UserPojo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    int insert(UserPojo record);
 
-    int insertSelective(User record);
+    int insertSelective(UserPojo record);
 
-    User selectByPrimaryKey(Integer id);
+    UserPojo selectByPrimaryKey(Integer id);
     
-    User selectByUserId(String userId);
+    UserPojo selectByUserId(String userId);
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByPrimaryKeySelective(UserPojo record);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(UserPojo record);
 }

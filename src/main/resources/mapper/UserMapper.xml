@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xxx.dao.UserDao">
-	<resultMap id="BaseResultMap" type="com.xxx.pojo.User">
+	<resultMap id="BaseResultMap" type="com.xxx.pojo.UserPojo">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="userid" property="userid" jdbcType="VARCHAR" />
 		<result column="password" property="password"
@@ -45,7 +45,7 @@
 		delete from chat_user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.xxx.pojo.User">
+	<insert id="insert" parameterType="com.xxx.pojo.UserPojo">
 		insert into chat_user (id, userid, password,
 		nickname, sex, age,
 		profilehead, profile, firsttime,
@@ -58,7 +58,7 @@
 		#{lasttime,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
 	</insert>
 	<insert id="insertSelective"
-		parameterType="com.xxx.pojo.User">
+		parameterType="com.xxx.pojo.UserPojo">
 		insert into chat_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -132,7 +132,7 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective"
-		parameterType="com.xxx.pojo.User">
+		parameterType="com.xxx.pojo.UserPojo">
 		update chat_user
 		<set>
 			<if test="userid != null">
@@ -169,7 +169,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey"
-		parameterType="com.xxx.pojo.User">
+		parameterType="com.xxx.pojo.UserPojo">
 		update chat_user
 		set userid = #{userid,jdbcType=VARCHAR},
 		password = #{password,jdbcType=VARCHAR},

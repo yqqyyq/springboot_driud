@@ -1,21 +1,24 @@
 package com.xxx.dao;
 
-import com.xxx.pojo.FileLog;
+import com.xxx.pojo.FileLogPojo;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
+@Repository
 public interface FileLogDao {
 
     int deleteByPrimaryKey(String filename);
 
-    int insert(FileLog record);
+    int insert(FileLogPojo record);
 
-    int insertSelective(FileLog record);
+    int insertSelective(FileLogPojo record);
 
-    FileLog selectByPrimaryKey(String filename);
+    FileLogPojo selectByPrimaryKey(String filename);
 
-    List<FileLog> selectAll();
+    List<FileLogPojo> selectAll();
 
-    int updateByPrimaryKeySelective(FileLog record);
+    int updateByPrimaryKeySelective(FileLogPojo record);
 
-    int updateByPrimaryKey(FileLog record);
+    int updateByPrimaryKey(FileLogPojo record);
 }

@@ -1,9 +1,9 @@
 package com.xxx.service;
 
-import com.xxx.pojo.User;
+import com.xxx.pojo.UserPojo;
 
 public interface UserService {
 
-    User getUserById(String userid);
-    int updateUser(User user);
+    UserPojo getUserById(String userid);
+    int updateUser(UserPojo user);
 }

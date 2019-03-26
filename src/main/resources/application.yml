@@ -6,13 +6,15 @@ spring:
     suffix: .html
     mode: HTML5
     encoding: UTF-8
-    content-type: text/html
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
+#    content-type: text/html
+  # mvc静态资源
   mvc:
     static-path-pattern: /static/**
   resources:
     static-locations: classpath:/static/
+  # 文件上传限制
   servlet:
     multipart:
       enabled: true

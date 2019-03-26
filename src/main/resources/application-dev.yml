@@ -1,17 +1,26 @@
 server:
   port: 8080
+  servlet:
+    context-path: /
 
 spring:
   application:
     name: druid-mybatis
+  session-timeout: 60
   profiles: dev
+  # 热部署
+  devtools:
+    livereload:
+      enabled: true
+  # 连接池
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
+    # druid
     druid:
+      driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://10.211.55.8:3306/wechat?useUnicode=true&characterEncoding=utf-8&useSSL=false
       username: yqqyyq
       password: yqqyyq
-      driver-class-name: com.mysql.jdbc.Driver
       platform: mysql
       # 连接池的配置信息
       # 初始化大小，最小，最大
@@ -44,7 +53,7 @@ spring:
       stat-view-servlet:
         url-pattern: "/druid/*"
         # IP白名单(没有配置或者为空，则允许所有访问)
-        allow: 127.0.0.1,192.168.163.1
+        allow:
         # IP黑名单 (存在共同时，deny优先于allow)
         deny: 192.168.1.73
         #  禁用HTML页面上的“Reset All”功能
@@ -54,3 +63,27 @@ spring:
         # 登录密码
         login-password: admin
       aop-patterns: "com.xxx.dao..*"
+  # quartz
+  quartz:
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: NON_CLUSTERED
+            skip-update-check: true
+          job-factory:
+            class: org.quartz.simpl.SimpleJobFactory
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
