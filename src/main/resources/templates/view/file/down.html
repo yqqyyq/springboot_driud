@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<title>WebChat | 下载</title>
+<link rel="icon" th:href="@{/static/foc/index.ico}" type="image/x-icon"/>
+<link rel="stylesheet" th:href="@{/static/plugins/amaze/css/app.css}">
+<script th:src="@{/static/plugins/jquery/jquery-3.3.1.min.js}"></script>
+</head>
+<body>
+<div class="am-cf admin-main">
+    <div>
+        <table class="gridtable" style="width: 800px; margin: 0 auto;">
+            <thead>
+            <tr>
+                <th>文件</th>
+                <th>用户</th>
+                <th>大小</th>
+                <th>时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="sqlTables">
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(function () {
+        $.ajax({
+            url: "../filelist",
+            dataType: "json",
+            success: function (data) {
+                for (var i in data) {
+                    $("#sqlTables").append("<tr><td>" + data[i].filename + "</td><td>"
+                        + data[i].fileuser + "</td><td>"
+                        + data[i].filesize + "</td><td>"
+                        + data[i].filetime + "</td><td>"
+                        + "<a href='../downfile?filename="+data[i].filename +"&filepath=" + data[i].fileuser+"/"+encodeURIComponent(data[i].filepath) + "'>下载</a></td><tr>");
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

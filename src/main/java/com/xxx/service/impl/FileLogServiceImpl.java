@@ -29,4 +29,13 @@ public class FileLogServiceImpl implements FileLogService {
     public List<FileLogPojo> selectAll() {
         return fileLogDao.selectAll();
     }
+
+
+    public List<FileLogPojo> selectInTime() {
+        return fileLogDao.selectInTime();
+    }
+
+    public Long selectByFileLog(FileLogPojo record){
+        return fileLogDao.selectByFileLog(record);
+    }
 }

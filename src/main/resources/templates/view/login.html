@@ -4,7 +4,7 @@
     <link href="/static/source/css/login.css" rel='stylesheet' type='text/css'/>
     <script src="/static/plugins/jquery/jquery-2.1.4.min.js"></script>
     <script src="/static/plugins/layer/layer.js"></script>
-    <title>WebChat | 登陆</title>
+    <title>WebChat | Login</title>
 </head>
 <body>
 
@@ -34,11 +34,11 @@
 
 <script>
     $(function () {
-        var error=[[${error}]]+'';
+        var error="[[${error}]]";
         if (error) {
             $('#submit').attr('value', error).css('background', 'red');
         }
-        var messgae=[[${message}]]+'';
+        var messgae="[[${message}]]";
         if (messgae) {
             layer.msg(messgae, {
                 offset: 0,

@@ -8,6 +8,7 @@ CREATE TABLE `chat_file_log` (
   `fileuser` varchar(255) CHARACTER SET utf8,
   `filetime` varchar(255) DEFAULT NULL,
   `filetype` varchar(255) DEFAULT NULL,
+  `filepath` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`filename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

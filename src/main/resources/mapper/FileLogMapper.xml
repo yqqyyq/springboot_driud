@@ -9,7 +9,7 @@
         <result column="filetype" property="filetype" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-    filename, filesize, fileuser, filetime, filetype
+    filename, filesize, fileuser, filetime, filetype,filepath
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
@@ -23,9 +23,9 @@
   </delete>
     <insert id="insert" parameterType="com.xxx.pojo.FileLogPojo">
     insert into chat_file_log (filename, filesize, fileuser,
-      filetime, filetype)
+      filetime, filetype,filepath)
     values (#{filename,jdbcType=VARCHAR}, #{filesize,jdbcType=VARCHAR}, #{fileuser,jdbcType=VARCHAR},
-      #{filetime,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR})
+      #{filetime,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR},#{filepath,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.xxx.pojo.FileLogPojo">
         insert into chat_file_log
@@ -45,6 +45,9 @@
             <if test="filetype != null">
                 filetype,
             </if>
+            <if test="filepath != null">
+                filepath,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="filename != null">
@@ -61,6 +64,9 @@
             </if>
             <if test="filetype != null">
                 #{filetype,jdbcType=VARCHAR},
+            </if>
+            <if test="filepath != null">
+                #{filepath,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -79,6 +85,9 @@
             <if test="filetype != null">
                 filetype = #{filetype,jdbcType=VARCHAR},
             </if>
+            <if test="filepath != null">
+                filepath = #{filepath,jdbcType=VARCHAR},
+            </if>
         </set>
         where filename = #{filename,jdbcType=VARCHAR}
     </update>
@@ -87,7 +96,8 @@
     set filesize = #{filesize,jdbcType=VARCHAR},
       fileuser = #{fileuser,jdbcType=VARCHAR},
       filetime = #{filetime,jdbcType=VARCHAR},
-      filetype = #{filetype,jdbcType=VARCHAR}
+      filetype = #{filetype,jdbcType=VARCHAR},
+      filepath = #{filepath,jdbcType=VARCHAR}
     where filename = #{filename,jdbcType=VARCHAR}
   </update>
 
@@ -95,5 +105,20 @@
         select
         <include refid="Base_Column_List"/>
         from chat_file_log order by filetime desc
+    </select>
+
+    <select id="selectInTime" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from chat_file_log order by filetime asc
+    </select>
+
+    <select id="selectByFileLog" resultType="java.lang.Long" parameterType="com.xxx.pojo.FileLogPojo">
+        select
+        count(1)
+        from chat_file_log
+        where
+        fileuser = #{fileuser,jdbcType=VARCHAR}
+        and filepath = #{filepath,jdbcType=VARCHAR}
     </select>
 </mapper>

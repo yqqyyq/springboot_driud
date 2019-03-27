@@ -2,7 +2,7 @@ package com.xxx.controller;
 
 import com.xxx.pojo.FileLogPojo;
 import com.xxx.service.FileLogService;
-import com.xxx.utils.CommonDate;
+import com.xxx.upload.ConstantByProperties;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -32,18 +28,16 @@ public class FileController {
 
     private static Logger logger = Logger.getLogger(FileController.class);
 
-    private static final String FILE_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/upload/file/";
-
     @Autowired
     private FileLogService fileLogService;
 
-    @RequestMapping(value = "/uploadfile/{userid}")
+    /*@RequestMapping(value = "/uploadfile/{userid}")
     public String uploadfile(@RequestParam("file") MultipartFile file,@PathVariable("userid") String userid,
                              HttpServletRequest request) {
         String msg = "";
         if (!file.isEmpty()) {
 
-            String storePath = FILE_PATH+userid+"/";//存放我们上传的文件路径
+            String storePath = ConstantByProperties.basePath+userid+"/";//存放我们上传的文件路径
             String fileName = file.getOriginalFilename();
             logger.info("[upload] fileName = " + fileName + ", status = upload");
             File filepath = new File(storePath, fileName);
@@ -83,7 +77,7 @@ public class FileController {
         }
         request.setAttribute("msg", msg);
         return "upload";
-    }
+    }*/
 
     @RequestMapping(value = "/down")
     public String down() {
@@ -98,11 +92,10 @@ public class FileController {
     }
 
     @RequestMapping(value = "/downfile")
-    public ResponseEntity<byte[]> fileDownload(String filename, HttpServletRequest request) throws IOException {
-        String path = FILE_PATH;//存放我们上传的文件路径
-        filename = new String(filename.getBytes("ISO-8859-1"), "utf-8");
+    public ResponseEntity<byte[]> fileDownload(String filename,String filepath, HttpServletRequest request) throws IOException {
+        String path = ConstantByProperties.basePath;//存放我们上传的文件路径
         logger.info("[down] fileName = " + filename + " , status = down");
-        File file = new File(path + filename);
+        File file = new File(path + filepath);
         if(file.exists()){
             // 设置响应头通知浏览器下载
             HttpHeaders headers = new HttpHeaders();
@@ -110,6 +103,7 @@ public class FileController {
             filename = new String(filename.getBytes("UTF-8"), "ISO-8859-1");
             headers.setContentDispositionFormData("attachment", filename);
             headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            filename = new String(filename.getBytes("ISO-8859-1"), "UTF-8");
             logger.info("[down] fileName = "+filename+" , status = succ");
             return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.OK);
         }else{

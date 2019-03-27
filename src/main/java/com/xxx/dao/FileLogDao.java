@@ -21,4 +21,8 @@ public interface FileLogDao {
     int updateByPrimaryKeySelective(FileLogPojo record);
 
     int updateByPrimaryKey(FileLogPojo record);
+
+    List<FileLogPojo> selectInTime();
+
+    Long selectByFileLog(FileLogPojo record);
 }

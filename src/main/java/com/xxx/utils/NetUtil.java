@@ -1,8 +1,8 @@
 package com.xxx.utils;
 
-import org.springframework.stereotype.Component;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 
 public class NetUtil {
 
@@ -30,5 +30,15 @@ public class NetUtil {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+
+    public static void doOptions(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json;charset=utf-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Range,Content-Type");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
     }
 }

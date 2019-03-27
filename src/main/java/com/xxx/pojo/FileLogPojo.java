@@ -12,6 +12,8 @@ public class FileLogPojo {
 
     private String filetype;
 
+    private String filepath;
+
     public String getFilename() {
         return filename;
     }
@@ -50,5 +52,13 @@ public class FileLogPojo {
 
     public void setFiletype(String filetype) {
         this.filetype = filetype;
+    }
+
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
     }
 }

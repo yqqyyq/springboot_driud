@@ -60,7 +60,7 @@ public class LoginController {
                 user.setLasttime(CommonDate.getTime24());
                 userService.updateUser(user);
                 attributes.addFlashAttribute("message", WordDefined.LOGIN_SUCCESS);
-                return "redirect:/down";
+                return "redirect:/main";
             }
         }
     }

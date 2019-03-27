@@ -22,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (requestUri.equalsIgnoreCase("/")) return true;
         logger.info("preHandle|" + requestUri+"|");
         HttpSession session = httpServletRequest.getSession();
-        if(session != null && session.getAttribute("login_status") != null){
+        if(session != null && session.getAttribute("user") != null){
             return true;
         }else{
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/login?timeout=true");

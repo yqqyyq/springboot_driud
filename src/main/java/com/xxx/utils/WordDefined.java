@@ -25,4 +25,15 @@ public class WordDefined {
     public static String LOG_DETAIL_UPDATE_PROFILEHEAD = "更新用户头像";
     public static String LOG_DETAIL_SYSCONFIG = "系统设置";
     public static String LOG_DETAIL_UPDATE_PASSWORD = "更新密码";
+
+    //public static final String FILE_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/upload/file/";
+    public static final String IMG_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/upload/img/";
+
+    public static final String FILE_NAME_FIELD = "name";
+    public static final String FILE_SIZE_FIELD = "size";
+    public static final String FILE_TYPE = "fileType";
+    public static final String TOKEN_FIELD = "token";
+    public static final String SERVER_FIELD = "server";
+    public static final String SUCCESS = "success";
+    public static final String MESSAGE = "message";
 }

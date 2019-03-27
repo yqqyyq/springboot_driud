@@ -28,7 +28,7 @@ public class SystemController {
     }
 
     @RequestMapping("/chat")
-    public ModelAndView getIndex(){
+    public ModelAndView getIndex() {
         ModelAndView mv = new ModelAndView("chat");
         return mv;
     }
@@ -38,14 +38,23 @@ public class SystemController {
         return "task/job";
     }
 
+    @RequestMapping(value = "/main")
+    public String mainhtml() {
+        return "main";
+    }
 
-    /*@RequestMapping("{url}.shtml")
+    @RequestMapping("{url}.shtml")
     public String page(@PathVariable("url") String url) {
-        return  url;
-    }*/
+        return url;
+    }
 
     @RequestMapping("{module}/{url}.shtml")
     public String page(@PathVariable("module") String module, @PathVariable("url") String url) {
         return module + "/" + url;
+    }
+
+    @RequestMapping(value = "/newupload")
+    public String newupload() {
+        return "file/upload";
     }
 }

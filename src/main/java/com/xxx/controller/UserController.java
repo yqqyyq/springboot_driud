@@ -2,6 +2,7 @@ package com.xxx.controller;
 
 import com.xxx.pojo.UserPojo;
 import com.xxx.service.UserService;
+import com.xxx.utils.WordDefined;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,6 @@ public class UserController {
 
     private static Logger logger = Logger.getLogger(UserController.class);
 
-
-    private static final String IMG_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/upload/img/";
-	
     @Autowired
     private UserService userService;
 
@@ -65,7 +63,7 @@ public class UserController {
      */
     @RequestMapping(value = "/config/{userid}")
     public ModelAndView setting(@PathVariable("userid") String userid){
-        ModelAndView view = new ModelAndView("info-set");
+        ModelAndView view = new ModelAndView("user/infoset");
         UserPojo user = userService.getUserById(userid);
         view.addObject("user", user);
         return view;
@@ -126,7 +124,7 @@ public class UserController {
     public String updateUserPassword(@PathVariable("userid") String userid,String image,HttpServletRequest request){
 
         JSONObject responseJson = new JSONObject();
-        String filePath = IMG_PATH+userid+"/";
+        String filePath = WordDefined.IMG_PATH+userid+"/";
         String PicName= UUID.randomUUID().toString()+".png";
 
         String header ="data:image";
@@ -175,12 +173,12 @@ public class UserController {
     public void pic(@PathVariable("profilehead") String profilehead,
                     HttpServletRequest request, HttpServletResponse response) {
 
-        String fileName = IMG_PATH + request.getSession().getAttribute("userid")+"/"+profilehead;
+        String fileName = WordDefined.IMG_PATH + request.getSession().getAttribute("userid")+"/"+profilehead;
         logger.info("[pic] fileName = " + profilehead + ", status = show");
         File filepath = new File(fileName);
         FileInputStream inputStream;
         if (!filepath.exists()) {
-            fileName = IMG_PATH + "default_head.jpg";
+            fileName = WordDefined.IMG_PATH + "default_head.jpg";
         }
         try {
             inputStream = new FileInputStream(fileName);
