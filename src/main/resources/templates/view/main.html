@@ -60,19 +60,19 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img th:src="@{'/pic/'+${session.user.profilehead}+''}" class="user-image"
                                  th:alt="${session.user.userid}"/>
-                            <span th:value="${session.user.nickname}" ></span>
+                            <span th:value="${session.user.nickname}"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <img th:src="@{'/pic/'+${session.user.profilehead}+''}" class="img-circle"
                                      th:alt="${session.user.userid}">
-
                                 <p th:text="${session.user.profile}"/>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a th:href="@{'/config/'+${session.userid}+''}" class="btn btn-default btn-flat">set</a>
+                                    <a src="user/infoset.shtml" href="user/infoset.shtml"
+                                       class="btn btn-default btn-flat">set</a>
                                 </div>
                                 <div class="pull-right">
                                     <a th:href="@{/logout}" class="btn btn-default btn-flat">logout</a>
@@ -89,7 +89,14 @@
     </header>
     <aside class="main-sidebar">
         <section class="sidebar">
-
+            <ul class="sidebar-menu" data-widget="tree">
+                <li class="active treeview menu-open">
+                    <ul class="treeview-menu">
+                        <li data-src="user/infoset.shtml"><a href="#user/infoset.shtml"><i
+                                class="fa fa-circle-o"></i>首页</a></li>
+                    </ul>
+                </li>
+            </ul>
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="treeview">
                     <a href="#">
@@ -140,13 +147,12 @@
     </aside>
 
     <div class="content-wrapper">
-
         <!-- 主页 -->
         <section class="content">
-
             <iframe scrolling="yes" frameborder="0"
                     style="width: 100%; min-height: 700px; overflow: visible; background: #fff;"
-                    src='' id="main" name="main"></iframe>
+                    th:src="@{'/config/'+${session.userid}+''}" id="main" name="main">
+            </iframe>
         </section>
     </div>
 

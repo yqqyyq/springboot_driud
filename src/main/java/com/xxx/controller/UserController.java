@@ -84,6 +84,9 @@ public class UserController {
             session.setAttribute("user", user);
             //Log log = LogUtil.setLog(userid, CommonDate.getTime24(), WordDefined.LOG_TYPE_UPDATE,WordDefined.LOG_DETAIL_UPDATE_PROFILE, NetUtil.getIpAddress(request));
             //logService.insertLog(log);
+            session.setAttribute("userid", userid);
+            session.setAttribute("user", user);
+            session.setAttribute("login_status",true);
             attributes.addFlashAttribute("message", "["+userid+"]资料更新成功!");
         }else{
             attributes.addFlashAttribute("error", "["+userid+"]资料更新失败!");
@@ -101,7 +104,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/pass/{userid}", method = RequestMethod.POST)
-    public String updateUserPassword(@PathVariable("userid") String userid,String oldpass, String newpass, RedirectAttributes attributes,HttpServletRequest request){
+    public String updateUserPassword(@PathVariable("userid") String userid,String oldpass, String newpass,HttpSession session, RedirectAttributes attributes,HttpServletRequest request){
         UserPojo user = userService.getUserById(userid);
         if(oldpass.equals(user.getPassword())){
             user.setPassword(newpass);
@@ -109,6 +112,9 @@ public class UserController {
             if(flag > 0){
                 //Log log = LogUtil.setLog(userid, CommonDate.getTime24(), WordDefined.LOG_TYPE_UPDATE,WordDefined.LOG_DETAIL_UPDATE_PASSWORD, NetUtil.getIpAddress(request));
                 //logService.insertLog(log);
+                session.setAttribute("userid", userid);
+                session.setAttribute("user", user);
+                session.setAttribute("login_status",true);
                 attributes.addFlashAttribute("message", "["+userid+"]密码更新成功!");
             }else{
                 attributes.addFlashAttribute("error", "["+userid+"]密码更新失败!");
@@ -121,7 +127,7 @@ public class UserController {
 
     @RequestMapping(value = "/uppic/{userid}", method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
-    public String updateUserPassword(@PathVariable("userid") String userid,String image,HttpServletRequest request){
+    public String updateUserPic(@PathVariable("userid") String userid,String image,HttpServletRequest request){
 
         JSONObject responseJson = new JSONObject();
         String filePath = WordDefined.IMG_PATH+userid+"/";
@@ -152,6 +158,11 @@ public class UserController {
                 if(flag > 0){
                     //Log log = LogUtil.setLog(userid, CommonDate.getTime24(), WordDefined.LOG_TYPE_UPDATE,WordDefined.LOG_DETAIL_UPDATE_PROFILEHEAD, NetUtil.getIpAddress(request));
                     //logService.insertLog(log);
+
+                    request.getSession().setAttribute("user", user);
+                    responseJson.put("result","ok");
+                    responseJson.put("msg","上传成功！");
+                    responseJson.put("fileUrl","/static/upload/img/"+userid+"/" + PicName);
                 }else{
                     responseJson.put("result","error");
                     responseJson.put("msg","上传失败！");
@@ -162,15 +173,11 @@ public class UserController {
                 responseJson.put("msg","上传失败！");
             }
         }
-
-        responseJson.put("result","ok");
-        responseJson.put("msg","上传成功！");
-        responseJson.put("fileUrl","/static/upload/img/"+userid+"/" + PicName);
         return responseJson.toString();
     }
 
     @RequestMapping(value = "/pic/{profilehead}", method = RequestMethod.GET)
-    public void pic(@PathVariable("profilehead") String profilehead,
+    public void showUserPic(@PathVariable("profilehead") String profilehead,
                     HttpServletRequest request, HttpServletResponse response) {
 
         String fileName = WordDefined.IMG_PATH + request.getSession().getAttribute("userid")+"/"+profilehead;
