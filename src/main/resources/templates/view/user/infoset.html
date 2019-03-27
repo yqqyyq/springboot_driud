@@ -97,7 +97,7 @@
                     <center>
                         <div class="up-img-cover" id="up-img-touch">
                             <img class="am-circle" alt="点击图片上传" width="140" height="140"
-                                 th:src="@{'/pic/'+${session.user.profilehead}+''}"
+                                 th:src="@{'/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}"
                                  data-am-popover="{content: '点击上传', trigger: 'hover focus'}">
                         </div>
                     </center>
@@ -170,7 +170,7 @@
                 <div class="am-g am-fl">
                     <div class="up-pre-before up-frame-radius">
                         <img alt=""
-                             th:src="@{'/pic/'+${session.user.profilehead}+''}"
+                             th:src="@{'/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}"
                              id="image">
                     </div>
                     <div class="up-pre-after up-frame-radius"></div>

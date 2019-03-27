@@ -176,11 +176,11 @@ public class UserController {
         return responseJson.toString();
     }
 
-    @RequestMapping(value = "/pic/{profilehead}", method = RequestMethod.GET)
-    public void showUserPic(@PathVariable("profilehead") String profilehead,
+    @RequestMapping(value = "/pic/{userid}/{profilehead}", method = RequestMethod.GET)
+    public void showUserPic(@PathVariable("userid") String userid,@PathVariable("profilehead") String profilehead,
                     HttpServletRequest request, HttpServletResponse response) {
 
-        String fileName = WordDefined.IMG_PATH + request.getSession().getAttribute("userid")+"/"+profilehead;
+        String fileName = WordDefined.IMG_PATH +userid+"/"+profilehead;
         logger.info("[pic] fileName = " + profilehead + ", status = show");
         File filepath = new File(fileName);
         FileInputStream inputStream;
