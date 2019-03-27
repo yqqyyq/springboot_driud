@@ -187,7 +187,7 @@
             //搜索
             search: function () {
                 $.ajax({
-                    url: "/job/list",
+                    url: "/job/find",
                     type: "post",
                     data: {'jobName': this.content, "pageNo": this.pageNo, 'pageSize': this.pageSize},
                     success: function (result) {

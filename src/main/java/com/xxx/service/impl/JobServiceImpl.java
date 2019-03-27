@@ -23,4 +23,9 @@ public class JobServiceImpl implements JobService {
 	public Long listQuartzPojoCount() {
 		return quartzDao.listQuartzPojoCount();
 	}
+
+	@Override
+	public List<QuartzPojo> SelectByJobName(String jobName) {
+		return quartzDao.SelectByJobName(jobName);
+	}
 }

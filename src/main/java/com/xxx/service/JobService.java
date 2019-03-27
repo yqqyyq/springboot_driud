@@ -9,4 +9,6 @@ public interface JobService {
     List<QuartzPojo> listQuartzPojo();
     
     Long listQuartzPojoCount();
+
+    List<QuartzPojo> SelectByJobName(String jobName);
 }

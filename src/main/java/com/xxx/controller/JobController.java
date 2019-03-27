@@ -60,6 +60,13 @@ public class JobController {
         return Result.ok(list);
     }
 
+    @PostMapping("/find")
+    public Result find(String jobName, Integer pageNo, Integer pageSize) {
+        LOGGER.info("任务列表");
+        List<QuartzPojo> list = jobService.SelectByJobName(jobName);
+        return Result.ok(list);
+    }
+
     @PostMapping("/trigger")
     public Result trigger(QuartzPojo quartz, HttpServletResponse response) {
         LOGGER.info("触发任务");

@@ -10,4 +10,6 @@ public interface QuartzDao {
     List<QuartzPojo> listQuartzPojo();
 
     Long listQuartzPojoCount();
+
+    List<QuartzPojo> SelectByJobName(String jobName);
 }
