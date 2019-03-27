@@ -22,18 +22,12 @@ public class DelFileJob implements Job, Serializable {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        logger.info("DelFileJob is executing.");
         //取得job详情
         JobDetail jobDetail = context.getJobDetail();
-        // 取得job名称
-        String jobName = jobDetail.getClass().getName();
-        logger.info("Name: " + jobDetail.getClass().getSimpleName());
         //取得job的类
         logger.info("Job Class: " + jobDetail.getJobClass());
         //取得job开始时间
-        logger.info(jobName + " fired at " + context.getFireTime());
-        //取得job下次触发时间
-        logger.info("FileLogJob next time." + context.getNextFireTime());
+        logger.info("fired at " + context.getFireTime());
 
         FileLogPojo fileLogPojo=null;
 
@@ -53,12 +47,12 @@ public class DelFileJob implements Job, Serializable {
                         Long count = fileLogService.selectByFileLog(fileLogPojo);
                         if (count == 0) {
                             fileUser.delete();
-                            logger.info("[del]" + fileuser + "/" + fileUser.getName());
+                            logger.info("[delFile]" + fileuser + "/" + fileUser.getName());
                         }
                     }
                 } else {
                     file.delete();
-                    logger.info("[del]" + file.getName());
+                    logger.info("[delFile]" + file.getName());
 
                 }
             }

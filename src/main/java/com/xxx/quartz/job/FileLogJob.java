@@ -23,18 +23,12 @@ public class FileLogJob implements Job, Serializable {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        logger.info("FileLogJob is executing.");
         //取得job详情
         JobDetail jobDetail = context.getJobDetail();
-        // 取得job名称
-        String jobName = jobDetail.getClass().getName();
-        logger.info("Name: " + jobDetail.getClass().getSimpleName());
         //取得job的类
         logger.info("Job Class: " + jobDetail.getJobClass());
         //取得job开始时间
-        logger.info(jobName + " fired at " + context.getFireTime());
-        //取得job下次触发时间
-        logger.info("FileLogJob next time." + context.getNextFireTime());
+        logger.info("fired at " + context.getFireTime());
 
         List<FileLogPojo> listsPojo=fileLogService.selectInTime();
         for(FileLogPojo fileLogPojo:listsPojo){
@@ -45,6 +39,7 @@ public class FileLogJob implements Job, Serializable {
             File file=new File(path);
             if(!file.exists()){
                 fileLogService.deleteByPrimaryKey(filename);
+                logger.info("[fileLog]" + fileuser + "|" + filename);
             }
         }
 
