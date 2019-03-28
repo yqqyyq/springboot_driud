@@ -87,3 +87,16 @@ spring:
             threadCount: 10
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
+  # mail
+  mail:
+    host: smtp.qq.com
+    username: yqssg@qq.com
+    #授权码
+    password: xxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true

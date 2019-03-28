@@ -2,13 +2,13 @@ spring:
   profiles:
     active: dev
   thymeleaf:
-    prefix: classpath:/templates/view/
+    prefix: classpath:/templates/
     suffix: .html
     mode: HTML5
     encoding: UTF-8
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
-#    content-type: text/html
+    content-type: text/html
   # mvc静态资源
   mvc:
     static-path-pattern: /static/**
@@ -20,8 +20,20 @@ spring:
       enabled: true
       resolve-lazily: true
       max-file-size: 50MB
+  # 邮件模板
+  freemarker:
+    template-loader-path: classpath:/static/mail/
+    suffix: .flt
+    enabled: true
+    cache: false
+    charset: UTF-8
+    content-type: text/html
+    allow-request-override: false
+    check-template-location: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
 
-#公共配置与profiles选择无关
 ## MyBatis的相关配置
 mybatis:
   # 映射文件位置
