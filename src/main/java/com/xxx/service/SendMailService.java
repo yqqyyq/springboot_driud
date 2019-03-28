@@ -11,9 +11,11 @@ public interface SendMailService {
 
     void sendAttachmentsMail(Email mail);
 
-    //void sendInlinResourceMail(String to, String subject, String content, String rscPath, String rscId);
+    void sendInlinResourceMail(Email mail);
 
     void sendFreemarker(Email mail);
 
     Result listMail(Email mail);
+
+    Result findBySubject(String subject);
 }

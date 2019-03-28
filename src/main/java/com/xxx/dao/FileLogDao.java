@@ -25,4 +25,6 @@ public interface FileLogDao {
     List<FileLogPojo> selectInTime();
 
     Long selectByFileLog(FileLogPojo record);
+
+    List<FileLogPojo> selectByFileName(String filename);
 }

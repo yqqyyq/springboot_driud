@@ -20,4 +20,6 @@ public interface OaEmailDao {
     int updateByPrimaryKey(OaEmailPojo record);
 
     List<OaEmailPojo> findAll();
+
+    List<OaEmailPojo> findBySubject(String subject);
 }

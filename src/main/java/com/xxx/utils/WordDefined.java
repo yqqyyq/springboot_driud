@@ -36,4 +36,7 @@ public class WordDefined {
     public static final String SERVER_FIELD = "server";
     public static final String SUCCESS = "success";
     public static final String MESSAGE = "message";
+
+    public static final String MAIL_IMG_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/mail/source/img/";
+
 }

@@ -5,6 +5,7 @@ import com.xxx.mail.Email;
 import com.xxx.service.SendMailService;
 import com.xxx.pojo.OaEmailPojo;
 import com.xxx.quartz.Result;
+import com.xxx.utils.WordDefined;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.slf4j.Logger;
@@ -114,9 +115,13 @@ public class SendMailServiceImpl implements SendMailService {
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getContent(), true);
 
-            FileSystemResource file = new FileSystemResource(new File(mail.getFile()));
-            String fileName = file.getFilename();
-            helper.addAttachment(fileName, file);
+            FileSystemResource file=null;
+            String filepath=WordDefined.MAIL_IMG_PATH;
+            for(String filename:mail.getFile()){
+                file= new FileSystemResource(new File(filepath+filename));
+                String fileName = file.getFilename();
+                helper.addAttachment(fileName, file);
+            }
 
             mailSender.send(message);
 
@@ -128,30 +133,56 @@ public class SendMailServiceImpl implements SendMailService {
     }
 
     @Override
+    public void sendInlinResourceMail(Email mail) {
+        MimeMessage message = mailSender.createMimeMessage();
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(whoAmI,"yqqyyq");
+            helper.setTo(mail.getEmail());
+            helper.setSubject(mail.getSubject());
+            helper.setText(mail.getContent(), true);
+
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put("mail", mail);
+
+            Template template = configuration.getTemplate(mail.getTemplate());
+            String text = FreeMarkerTemplateUtils.processTemplateIntoString(
+                    template, model);
+            helper.setText(text, true);
+
+            //可以添加多个图片
+            File file = null;
+            FileSystemResource resource=null;
+            String filepath=WordDefined.MAIL_IMG_PATH;
+            String imgId="";
+            for(int i=0;i<mail.getFile().length;i++){
+                String filename=mail.getFile()[i];
+                imgId="imgId"+(i+1);
+                file = new File(filepath+filename);
+                resource= new FileSystemResource(file);
+                helper.addInline(imgId, resource);
+            }
+
+            mailSender.send(message);
+
+            mail.setContent(text);
+            OaEmailPojo oaEmailPojo = new OaEmailPojo(mail);
+            oaEmailDao.insert(oaEmailPojo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Result listMail(Email mail) {
         List<OaEmailPojo> list =  oaEmailDao.findAll();
         return Result.ok(list);
     }
 
-    /*@Override
-    public void sendInlinResourceMail(String to, String subject, String content,
-                                      String rscPath, String rscId) {
-        MimeMessage message = mailSender.createMimeMessage();
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(to);
-            helper.setFrom(whoAmI);
-            helper.setSubject(subject);
-            helper.setText(content, true);
-
-            //可以添加多个图片
-            FileSystemResource res = new FileSystemResource(new File(rscPath));
-            helper.addInline(rscId, res);
-
-            mailSender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }*/
+    @Override
+    public Result findBySubject(String subject) {
+        List<OaEmailPojo> list = oaEmailDao.findBySubject(subject);
+        return Result.ok(list);
+    }
 
 }

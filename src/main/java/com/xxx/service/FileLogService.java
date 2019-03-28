@@ -18,4 +18,6 @@ public interface FileLogService {
     List<FileLogPojo> selectInTime();
 
     Long selectByFileLog(FileLogPojo record);
+
+    Result selectByFileName(String filename);
 }

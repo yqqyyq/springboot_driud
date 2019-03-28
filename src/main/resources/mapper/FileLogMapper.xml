@@ -121,4 +121,20 @@
         fileuser = #{fileuser,jdbcType=VARCHAR}
         and filepath = #{filepath,jdbcType=VARCHAR}
     </select>
+
+    <sql id="queryByFilNameSQL">
+        <if test="_parameter != null and _parameter !='' ">
+            and filename like concat('%',#{filename},'%')
+        </if>
+    </sql>
+
+    <select id="selectByFileName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from chat_file_log
+        <trim prefix="where" prefixOverrides="and | or">
+            <include refid="queryByFilNameSQL" />
+        </trim>
+        order by filetime desc
+    </select>
 </mapper>

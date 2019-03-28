@@ -33,6 +33,14 @@ WHERE
 	tri.TRIGGER_TYPE = 'CRON'
     </select>
 
+    <sql id="queryByJobNameSQL">
+        <if test="_parameter != null and _parameter !='' ">
+            <bind name="jobNamepattern" value="'%'+_parameter+'%'" />
+            and job.JOB_NAME like #{jobNamepattern}
+        </if>
+        and tri.TRIGGER_TYPE = 'CRON'
+    </sql>
+
     <select id="SelectByJobName" resultType="com.xxx.pojo.QuartzPojo" parameterType="java.lang.String">
         SELECT
         job.JOB_NAME AS jobName,
@@ -48,9 +56,9 @@ WHERE
         QRTZ_JOB_DETAILS AS job
         LEFT JOIN QRTZ_TRIGGERS AS tri ON job.JOB_NAME = tri.JOB_NAME
         LEFT JOIN QRTZ_CRON_TRIGGERS AS cron ON cron.TRIGGER_NAME = tri.TRIGGER_NAME
-        WHERE
-        tri.TRIGGER_TYPE = 'CRON'
-        and job.JOB_NAME like concat('%',#{jobName},'%')
+        <trim prefix="where" prefixOverrides="and | or">
+            <include refid="queryByJobNameSQL" />
+        </trim>
     </select>
 
 </mapper>

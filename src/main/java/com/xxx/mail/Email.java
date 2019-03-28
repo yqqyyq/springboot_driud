@@ -19,7 +19,7 @@ public class Email implements Serializable {
 	private String template;//模板
 
 
-	private String file;//附件
+	private String[] file;//附件
 	private HashMap<String, String> kvMap;// 自定义参数
 
 	public Email() {
@@ -27,7 +27,7 @@ public class Email implements Serializable {
 	}
 	
 	public Email(String[] email, String subject, String content, String template,
-                 HashMap<String, String> kvMap,String file) {
+                 HashMap<String, String> kvMap,String[] file) {
 		super();
 		this.email = email;
 		this.subject = subject;
@@ -37,9 +37,7 @@ public class Email implements Serializable {
 		this.file=file;
 	}
 
-	public String[] getEmail() {
-		return email;
-	}
+	public String[] getEmail() { return email; }
 	public void setEmail(String[] email) {
 		this.email = email;
 	}
@@ -67,6 +65,6 @@ public class Email implements Serializable {
 	public void setKvMap(HashMap<String, String> kvMap) {
 		this.kvMap = kvMap;
 	}
-	public String getFile() { return file; }
-	public void setFile(String file) { this.file = file; }
+	public String[] getFile() { return file; }
+	public void setFile(String[] file) { this.file = file; }
 }

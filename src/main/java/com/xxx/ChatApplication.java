@@ -1,5 +1,6 @@
 package com.xxx;
 
+import com.xxx.mail.Email;
 import com.xxx.service.SendMailService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,17 @@ public class ChatApplication implements CommandLineRunner {
 
 	@Autowired
 	private SendMailService mailService;
+
 	@Override
 	public void run(String... args) throws Exception {
-		/*Email mail = new Email();
-		mail.setEmail(new String[]{"yqqyyq@163.com","1280239780@qq.com"});
+		Email mail = new Email();
+		mail.setEmail(new String[]{"yqqyyq@163.com"});
+								//,"1280239780@qq.com"});
 		mail.setSubject("for-mail");
-		mail.setContent("发送邮件给你,请签收!");
+		mail.setContent("<br>多学习!<br>多实践!<br>多反思!<br>");
 		mail.setTemplate("yqqyyq.flt");
-		mailService.sendFreemarker(mail);*/
+		mail.setFile(new String[]{"icon_email_prompt.png","yqqyyq.jpeg"});
+		mailService.sendInlinResourceMail(mail);
 	}
 
 }

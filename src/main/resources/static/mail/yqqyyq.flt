@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
-    <meta name="renderer" content="webkit" />
+    <meta name="renderer" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Document</title>
+    <title>WebChat</title>
 </head>
 <body>
     <div class="container"
@@ -24,12 +24,12 @@
                 <table width="100%" style="border: none">
                     <tr>
                         <td style="width: 20%; text-align: center; padding-top: 25px">
-                            <img src="./mail/source/icon_email_prompt.png" alt="">
+                            <img src="cid:imgId1" alt="">
+                        </td>
+                        <td style="width: 20%; text-align: center; padding-top: 25px">
                         </td>
                         <td colspan="2" style="font-size: 18px; line-height: 1.6;padding-top: 30px">
-                            <div style="text-indent: 36px; padding-right: 24px">
-                                 ${mail.content}
-                            </div>
+                            ${mail.content}
                         </td>
                     </tr>
                 </table>
@@ -46,8 +46,7 @@
             <table style="width: 100%">
                 <tr>
                     <td style="width: 60%">
-                        <h4 style="font-size: 16px;
-                             margin: 10px 0;">
+                        <h4 style="font-size: 16px; margin: 10px 0;">
                           团险常规
                         </h4>
                         <p>
@@ -61,10 +60,15 @@
                                 <span style="display: inline-block; margin-right: 16px;">21433</span>
                             </b>
                         </p>
+                        <p>
+                            <b>
+                                <span style="display: inline-block; margin-right: 16px;">定时任务自动发送模板邮件</span>
+                            </b>
+                        </p>
                     </td>
                     <td style="text-align: right;">
                         <div style=" display: inline-block;width: 120px ; padding-top: 10px; padding-right: 200px;">
-                            <img src="./mail/source/yqqyyq.jpeg" alt="" style="vertical-align: top">
+                            <img src="cid:imgId2" alt="" style="vertical-align: top">
                         </div>
                     </td>
                 </tr>
@@ -72,4 +76,4 @@
         </div>
     </div>
 </body>
-</html> 
+</html>

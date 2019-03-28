@@ -30,4 +30,9 @@ public class MailController {
 	public Result list(Email mail) {
 		return sendMailService.listMail(mail);
 	}
+
+	@PostMapping("find")
+	public Result find(String subject) {
+		return sendMailService.findBySubject(subject);
+	}
 }

@@ -97,6 +97,12 @@ public class FileController {
         return fileLogService.selectAll1();
     }
 
+    @PostMapping("/filelistpostbyfilename")
+    @ResponseBody
+    public Result filelistpostbyfilename(String filename, Integer pageNo, Integer pageSize) {
+        return fileLogService.selectByFileName(filename);
+    }
+
     @RequestMapping(value = "/downfile")
     public ResponseEntity<byte[]> fileDownload(String filename, String filepath, HttpServletRequest request) throws IOException {
         String path = ConstantByProperties.basePath;//存放我们上传的文件路径

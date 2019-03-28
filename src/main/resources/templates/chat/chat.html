@@ -1,14 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<title>WebChat | 聊天</title>
-<script th:src="@{/static/plugins/jquery/jquery-2.1.4.min.js}"></script>
-<script th:src="@{/static/plugins/layer/layer.js}"></script>
-<script th:src="@{/static/plugins/laypage/laypage.js}"></script>
-<link rel="stylesheet" th:href="@{/static/plugins/amaze/css/amazeui.min.css}">
-<link rel="stylesheet" th:href="@{/static/plugins/amaze/css/admin.css}">
-<link rel="stylesheet" th:href="@{/static/plugins/contextjs/css/context.standalone.css}">
-<script th:src="@{/static/plugins/amaze/js/amazeui.min.js}"></script>
-<script th:src="@{/static/plugins/amaze/js/app.js}"></script>
-<script th:src="@{/static/plugins/contextjs/js/context.js}"></script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebChat | chat</title>
+    <link th:href="@{/static/plugins/amaze/css/amazeui.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/plugins/amaze/css/admin.css}" rel="stylesheet"/>
+    <link th:href="@{/static/plugins/contextjs/css/context.standalone.css}" rel="stylesheet"/>
+
+    <script th:src="@{/static/plugins/jquery/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{/static/plugins/layer/layer.js}"></script>
+    <script th:src="@{/static/plugins/laypage/laypage.js}"></script>
+    <script th:src="@{/static/plugins/amaze/js/amazeui.min.js}"></script>
+    <script th:src="@{/static/plugins/amaze/js/app.js}"></script>
+    <script th:src="@{/static/plugins/contextjs/js/context.js}"></script>
+</head>
 <body>
 <div class="am-cf admin-main">
     <div class="admin-content">
@@ -85,13 +91,13 @@
             }
         ]);
     });
-    var message="[[${message}]]";
+    var message = "[[${message}]]";
     if (message) {
         layer.msg(message, {
             offset: 0
         });
     }
-    var error="[[${error}]]";
+    var error = "[[${error}]]";
     if (error) {
         layer.msg(error, {
             offset: 0,
@@ -100,8 +106,8 @@
     }
     var wsServer = null;
     var ws = null;
-    var userid=[[${session.userid}]];
-    wsServer = "ws://" + location.host + "/chatServer/"+userid;
+    var userid = [[${session.userid}]];
+    wsServer = "ws://" + location.host + "/chatServer/" + userid;
     ws = new WebSocket(wsServer); //创建WebSocket对象
     ws.onopen = function (evt) {
         layer.msg("已经建立连接", {offset: 0});
@@ -230,9 +236,9 @@
         var isSef = userid == message.from.userid ? "am-comment-flip" : "";   //如果是自己则显示在右边,他人信息显示在左边
 
         var pic;
-        var url = "/head/"+message.from.userid ;
+        var url = "/head/" + message.from.userid;
         $.getJSON(url, function (data) {
-            pic = "/pic/" +data.userid+"/"+ data.profilehead;
+            pic = "/pic/" + data.userid + "/" + data.profilehead;
 
             var html = "<li class=\"am-comment " + isSef + " am-comment-primary\"><a href=\"#link-to-user-home\"><img width=\"48\" height=\"48\" class=\"am-comment-avatar\" alt=\"\" src=\"" + pic + "\"></a><div class=\"am-comment-main\">\n" +
                 "<header class=\"am-comment-hd\"><div class=\"am-comment-meta\">   <a class=\"am-comment-author\" href=\"#link-to-user\">" + message.from.nickname + "</a> 发表于<time> " + message.time + "</time></div></header><div class=\"am-comment-bd\"> <p>" + message.content + "</p></div></div></li>";
