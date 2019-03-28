@@ -1,6 +1,6 @@
 package com.xxx;
 
-import com.xxx.mail.SendMailService;
+import com.xxx.service.SendMailService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

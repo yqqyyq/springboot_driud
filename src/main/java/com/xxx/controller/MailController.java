@@ -1,7 +1,7 @@
 package com.xxx.controller;
 
 import com.xxx.mail.Email;
-import com.xxx.mail.SendMailService;
+import com.xxx.service.SendMailService;
 import com.xxx.quartz.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,8 +1,8 @@
-package com.xxx.mail.impl;
+package com.xxx.service.impl;
 
 import com.xxx.dao.OaEmailDao;
 import com.xxx.mail.Email;
-import com.xxx.mail.SendMailService;
+import com.xxx.service.SendMailService;
 import com.xxx.pojo.OaEmailPojo;
 import com.xxx.quartz.Result;
 import freemarker.template.Configuration;

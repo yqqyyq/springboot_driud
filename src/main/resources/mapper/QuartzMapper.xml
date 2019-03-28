@@ -24,7 +24,7 @@ WHERE
 
     <select id="listQuartzPojoCount" resultType="java.lang.Long">
         SELECT
-	COUNT( * )
+	COUNT(*)
 FROM
 	QRTZ_JOB_DETAILS AS job
 	LEFT JOIN QRTZ_TRIGGERS AS tri ON job.JOB_NAME = tri.JOB_NAME

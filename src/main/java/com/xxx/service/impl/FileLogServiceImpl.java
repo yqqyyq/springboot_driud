@@ -2,6 +2,7 @@ package com.xxx.service.impl;
 
 import com.xxx.dao.FileLogDao;
 import com.xxx.pojo.FileLogPojo;
+import com.xxx.quartz.Result;
 import com.xxx.service.FileLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,8 @@ public class FileLogServiceImpl implements FileLogService {
     @Autowired
     private FileLogDao fileLogDao;
 
-
     @Override
-    public int deleteByPrimaryKey(String filename){
+    public int deleteByPrimaryKey(String filename) {
         return fileLogDao.deleteByPrimaryKey(filename);
     }
 
@@ -35,7 +35,13 @@ public class FileLogServiceImpl implements FileLogService {
         return fileLogDao.selectInTime();
     }
 
-    public Long selectByFileLog(FileLogPojo record){
+    public Long selectByFileLog(FileLogPojo record) {
         return fileLogDao.selectByFileLog(record);
+    }
+
+    @Override
+    public Result selectAll1() {
+        List<FileLogPojo> list = fileLogDao.selectAll();
+        return Result.ok(list);
     }
 }

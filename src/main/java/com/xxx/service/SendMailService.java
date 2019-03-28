@@ -1,5 +1,6 @@
-package com.xxx.mail;
+package com.xxx.service;
 
+import com.xxx.mail.Email;
 import com.xxx.quartz.Result;
 
 public interface SendMailService {
