@@ -14,8 +14,13 @@ public class MailController {
 	
 	@Autowired
 	private SendMailService sendMailService;
-	
-	@PostMapping("send")
+
+	@PostMapping("/list")
+	public Result find(String subject) {
+		return sendMailService.findBySubject(subject);
+	}
+
+	@PostMapping("/send")
 	public Result send(Email mail) {
 		try {
 			sendMailService.sendFreemarker(mail);
@@ -24,15 +29,5 @@ public class MailController {
 			return  Result.error();
 		}
 		return  Result.ok();
-	}
-	
-	@PostMapping("list")
-	public Result list(Email mail) {
-		return sendMailService.listMail(mail);
-	}
-
-	@PostMapping("find")
-	public Result find(String subject) {
-		return sendMailService.findBySubject(subject);
 	}
 }

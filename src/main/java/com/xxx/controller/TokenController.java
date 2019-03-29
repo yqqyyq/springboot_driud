@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@RequestMapping("/token")
 public class TokenController {
 
 	@Autowired
 	private TokenService tokenService;
 
 
-	@RequestMapping(value = "/queryToken")
+	@RequestMapping(value = "/querytoken")
 	public void firstdoget(HttpServletRequest req, HttpServletResponse resp){
 		tokenService.firstdoget(req,resp);
 	}

@@ -22,6 +22,7 @@ import java.io.*;
 import java.util.UUID;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     private static Logger logger = Logger.getLogger(UserController.class);
@@ -79,7 +80,7 @@ public class UserController {
         }else{
             attributes.addFlashAttribute("error", "["+userid+"]资料更新失败!");
         }
-        return "redirect:/config/{userid}";
+        return "redirect:/user/config/{userid}";
     }
 
     /**
@@ -104,7 +105,7 @@ public class UserController {
         }else{
             attributes.addFlashAttribute("error", "原密码错误!");
         }
-        return "redirect:/config/{userid}";
+        return "redirect:/user/config/{userid}";
     }
 
     @RequestMapping(value = "/uppic/{userid}", method = RequestMethod.POST,produces = "application/json; charset=utf-8")

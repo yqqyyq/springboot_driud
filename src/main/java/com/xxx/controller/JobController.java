@@ -24,6 +24,13 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
+    @PostMapping("/list")
+    public Result list(String jobName, Integer pageNo, Integer pageSize) {
+        LOGGER.info("任务列表");
+        List<QuartzPojo> list = jobService.SelectByJobName(jobName);
+        return Result.ok(list);
+    }
+
     @SuppressWarnings({"unchecked", "rawtypes"})
     @PostMapping("/add")
     public Result save(QuartzPojo quartz) {
@@ -51,20 +58,6 @@ public class JobController {
             return Result.error();
         }
         return Result.ok();
-    }
-
-    @PostMapping("/list")
-    public Result list(QuartzPojo quartz, Integer pageNo, Integer pageSize) {
-        LOGGER.info("任务列表");
-        List<QuartzPojo> list = jobService.listQuartzPojo();
-        return Result.ok(list);
-    }
-
-    @PostMapping("/find")
-    public Result find(String jobName, Integer pageNo, Integer pageSize) {
-        LOGGER.info("任务列表");
-        List<QuartzPojo> list = jobService.SelectByJobName(jobName);
-        return Result.ok(list);
     }
 
     @PostMapping("/trigger")

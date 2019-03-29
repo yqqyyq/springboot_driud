@@ -1,21 +1,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>WebChat | userset</title>
-    <link rel="icon" href="/static/foc/index.ico" type="image/x-icon"/>
-    <script src="/static/plugins/jquery/jquery-2.1.4.min.js"></script>
-    <script src="/static/plugins/layer/layer.js"></script>
-    <link rel="stylesheet" href="/static/plugins/amaze/css/amazeui.min.css">
-    <link rel="stylesheet" href="/static/plugins/amaze/css/admin.css">
-    <link rel="stylesheet" href="/static/plugins/contextjs/css/context.standalone.css">
-    <script src="/static/plugins/amaze/js/amazeui.min.js"></script>
-    <script src="/static/plugins/amaze/js/app.js"></script>
-    <script src="/static/plugins/contextjs/js/context.js"></script>
+    <link th:href="@{/static/plugins/amaze/css/amazeui.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/plugins/amaze/css/admin.css}" rel="stylesheet"/>
+<!--
+    <link th:href="@{/static/plugins/contextjs/css/context.standalone.css}" rel="stylesheet"/>
+-->
     <!-- 上传图片插件 -->
-    <link rel="stylesheet" href="/static/plugins/amaze/css/amazeui.cropper.css">
-    <link rel="stylesheet" href="/static/plugins/custom/css/custom_up_img.css">
-    <link rel="stylesheet" href="/static/plugins/custom/css/font-awesome.min.css">
-    <script src="/static/plugins/amaze/js/cropper.min.js"></script>
-    <script src="/static/plugins/custom/js/custom_up_img.js"></script></head>
+    <link th:href="@{/static/plugins/amaze/css/amazeui.cropper.css}" rel="stylesheet">
+    <link th:href="@{/static/plugins/custom/css/custom_up_img.css}" rel="stylesheet"/>
+    <link th:href="@{/static/plugins/custom/css/font-awesome.min.css}" rel="stylesheet"/>
+
+    <script th:src="@{/static/plugins/jquery/jquery-3.3.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/static/plugins/layer_shtml/layer.js}" type="text/javascript"></script>
+    <script th:src="@{/static/plugins/amaze/js/amazeui.min.js}"></script>
+    <script th:src="@{/static/plugins/amaze/js/app.js}"></script>
+    <script th:src="@{/static/plugins/contextjs/js/context.js}"></script>
+    <script th:src="@{/static/plugins/amaze/js/cropper.min.js}"></script>
+    <script th:src="@{/static/plugins/custom/js/custom_up_img.js}"></script></head>
 <body>
 <div class="am-cf admin-main">
     <div class="admin-content">
@@ -33,7 +35,7 @@
             <div class="am-tabs-bd">
                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
                     <form class="am-form am-form-horizontal" id="information-form"
-                          th:action="@{'/update/'+${session.userid}+''}" method="post" data-am-validator>
+                          th:action="@{'/user/update/'+${session.userid}+''}" method="post" data-am-validator>
                         <input type="hidden" id="id" name="id" th:value="${session.user.id}">
                         <div class="am-form-group">
                             <label for="userid" class="am-u-sm-2 am-form-label">用户名</label>
@@ -96,7 +98,7 @@
                     <center>
                         <div class="up-img-cover" id="up-img-touch">
                             <img class="am-circle" alt="点击图片上传" width="140" height="140"
-                                 th:src="@{'/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}"
+                                 th:src="@{'/user/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}"
                                  data-am-popover="{content: '点击上传', trigger: 'hover focus'}">
                         </div>
                     </center>
@@ -107,7 +109,7 @@
 
                 <div class="am-tab-panel am-fade" id="tab3">
                     <form class="am-form am-form-horizontal" data-am-validator
-                          th:action="@{'/pass/'+${session.userid}+''}" method="post">
+                          th:action="@{'/user/pass/'+${session.userid}+''}" method="post">
                         <div class="am-form-group">
                             <label for="password1" class="am-u-sm-2 am-form-label">原密码</label>
                             <div class="am-u-sm-10">
@@ -169,7 +171,7 @@
                 <div class="am-g am-fl">
                     <div class="up-pre-before up-frame-radius">
                         <img alt=""
-                             th:src="@{'/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}"
+                             th:src="@{'/user/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}"
                              id="image">
                     </div>
                     <div class="up-pre-after up-frame-radius"></div>
@@ -179,10 +181,9 @@
                         <span class="am-icon-rotate-left" onclick="rotateimgleft()"></span>
                         <span class="am-icon-rotate-right" onclick="rotateimgright()"></span>
                         <span class="am-icon-check" id="up-btn-ok"
-                              th:url="@{'/uppic/'+${session.userid}+''}"></span>
+                              th:url="@{'/user/uppic/'+${session.userid}+''}"></span>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -209,10 +210,6 @@
         </div>
     </div>
 </div>
-<a href="#" class="am-show-sm-only admin-menu"
-   data-am-offcanvas="{target: '#admin-offcanvas'}"> <span
-        class="am-icon-btn am-icon-th-list"></span>
-</a>
 <script>
     var message="[[${message}]]";
     if (message) {

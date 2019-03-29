@@ -28,11 +28,9 @@ import java.util.UUID;
 
 /**
  * 前端多个文件上传时串行调用的，并非同时上传
- * 
- * @author 
- *
  */
 @Controller
+@RequestMapping("/file")
 public class UploadController {
 
 	static final int BUFFER_LENGTH = 10240;
@@ -42,7 +40,7 @@ public class UploadController {
 	@Autowired
 	private FileLogService fileLogService;
 
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.GET)
+	@RequestMapping(value = "/uploadfile", method = RequestMethod.GET)
 	public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		long start = 0;
 		boolean success = true;
@@ -76,9 +74,9 @@ public class UploadController {
 		}
 	}
 
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadfile", method = RequestMethod.POST)
 	public void uploadFileListPost(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, Exception {
+			throws Exception {
         NetUtil.doOptions(request, response);
 		// 文件名和大小的hashcode编码
 		final String token = request.getParameter(WordDefined.TOKEN_FIELD);

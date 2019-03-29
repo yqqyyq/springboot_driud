@@ -24,7 +24,7 @@
     </div>
 
     <template>
-        <i-table border :content="self" :columns="tableTitle" :data="consultData"></i-table>
+        <i-table border :content="self" :columns="tableTitle" :data="MailData"></i-table>
         <br>
         <!-- <Page :current="mail.pageNumber" :total="total" :page-size="mail.pageSize"  @on-change="changePage" @on-page-size-change="changePageSize" show-elevator show-sizer show-total></Page> -->
     </template>
@@ -84,32 +84,23 @@
                     return h('div', new Date(this.row.sendTime).Format('yyyy-MM-dd'));
                 }
             },],
-            consultData: []
+            MailData: []
         },
         methods: {
-            list: function () {
-                $.ajax({
-                    url: '/mail/list',
-                    type: "post",
-                    param: this.mail,
-                    success: function (result) {
-                        vm.consultData = result.msg;
-                    }
-                });
-            },
             //搜索
             search: function () {
                 $.ajax({
-                    url: "/mail/find",
+                    url: "/mail/list",
                     type: "post",
                     data: {'subject': this.mail.subject, "pageNo": this.pageNo, 'pageSize': this.pageSize},
                     success: function (result) {
-                        vm.consultData = result.msg;
+                        vm.MailData = result.msg;
                     }
                 });
             },
             reload: function (type) {
-                this.list();
+                this.mail.subject='';
+                this.search();
             },
             see: function () {
                 dialogOpen({
@@ -146,10 +137,9 @@
         },
         created: function () {
             this.mail.subject='';
-            this.list();
+            this.search();
             this.initFormatter();
         }
-
     });
 </script>
 </body>

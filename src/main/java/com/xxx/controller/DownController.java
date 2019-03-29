@@ -1,6 +1,5 @@
 package com.xxx.controller;
 
-import com.xxx.pojo.FileLogPojo;
 import com.xxx.quartz.Result;
 import com.xxx.service.FileLogService;
 import com.xxx.upload.ConstantByProperties;
@@ -12,18 +11,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @Description 用户登录和注销
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/file")
 public class DownController {
 
     private static Logger logger = Logger.getLogger(DownController.class);
@@ -31,75 +31,9 @@ public class DownController {
     @Autowired
     private FileLogService fileLogService;
 
-    /*@RequestMapping(value = "/uploadfile/{userid}")
-    public String uploadfile(@RequestParam("file") MultipartFile file,@PathVariable("userid") String userid,
-                             HttpServletRequest request) {
-        String msg = "";
-        if (!file.isEmpty()) {
-
-            String storePath = ConstantByProperties.basePath+userid+"/";//存放我们上传的文件路径
-            String fileName = file.getOriginalFilename();
-            logger.info("[upload] fileName = " + fileName + ", status = upload");
-            File filepath = new File(storePath, fileName);
-            if (!filepath.getParentFile().exists()) {
-                filepath.getParentFile().mkdirs();//如果目录不存在，创建目录
-            }
-            try {
-                file.transferTo(new File(storePath + File.separator + fileName));//把文件写入目标文件地址
-                fileLogService.deleteByPrimaryKey(fileName);
-                FileLogPojo fileLog = new FileLogPojo();
-                fileLog.setFilename(fileName);
-                fileLog.setFileuser(userid);
-                fileLog.setFiletime(CommonDate.getTime24());
-
-                float flsie=file.getSize();
-                String fileSize="";
-                DecimalFormat df = new DecimalFormat("###.00");
-                if(flsie>1024*1024){
-                    fileSize=df.format(flsie/(1024*1024))+" M";
-                }else if(flsie>1024){
-                    fileSize=df.format(flsie/(1024))+" K";
-                }else{
-                    fileSize=flsie+" B";
-                }
-                fileLog.setFilesize(fileSize);
-                fileLogService.insert(fileLog);
-                logger.info("[upload] fileName = " + fileName + ", status = succ");
-                msg = "文件上传成功！";
-            } catch (Exception e) {
-                e.printStackTrace();
-                msg = "文件上传失败！";
-                logger.info("[upload] fileName = " + fileName + ", status = fail");
-            }
-        } else {
-            msg = "上传的文件为空！";
-            logger.info("[upload] fileName = null , status = null");
-        }
-        request.setAttribute("msg", msg);
-        return "upload";
-    }*/
-
-    @RequestMapping(value = "/down")
-    public String down() {
-        return "down";
-    }
-
-    @RequestMapping(value = "/filelist")
+    @PostMapping("/listfile")
     @ResponseBody
-    public List<FileLogPojo> filelist() {
-        List<FileLogPojo> fileLogs = fileLogService.selectAll();
-        return fileLogs;
-    }
-
-    @PostMapping("/filelistpost")
-    @ResponseBody
-    public Result filelistpost() {
-        return fileLogService.selectAll1();
-    }
-
-    @PostMapping("/filelistpostbyfilename")
-    @ResponseBody
-    public Result filelistpostbyfilename(String filename, Integer pageNo, Integer pageSize) {
+    public Result list(String filename, Integer pageNo, Integer pageSize) {
         return fileLogService.selectByFileName(filename);
     }
 
@@ -124,7 +58,7 @@ public class DownController {
         }
     }
 
-    @PostMapping(value = "/downfilepost")
+    /*@PostMapping(value = "/downfilepost")
     public ResponseEntity<byte[]> fileDownloadPost(@RequestParam(value = "fileuser") String fileuser, @RequestParam(value = "filename") String filename, @RequestParam(value = "filepath") String filepath, HttpServletRequest request) throws IOException {
         String path = ConstantByProperties.basePath + fileuser + "/";//存放我们上传的文件路径
         logger.info("[downpsot] fileName = " + filename + " , status = down");
@@ -143,7 +77,7 @@ public class DownController {
             logger.info("[downpsot] fileName = " + filename + " , status = fail");
             return new ResponseEntity<byte[]>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 
     /*public String getFilename(HttpServletRequest request, String filename) throws UnsupportedEncodingException {
         String[] IEBrowerKeyWords = {"MSIE", "Trident", "Edge"};
