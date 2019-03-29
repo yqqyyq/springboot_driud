@@ -18,4 +18,6 @@ public interface SendMailService {
     Result listMail(Email mail);
 
     Result findBySubject(String subject);
+
+    Result findBySubjectPage(String subject,Integer pageNo,Integer pageSize);
 }

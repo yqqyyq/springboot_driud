@@ -57,6 +57,30 @@
                 title: "操作",
                 width: "",
                 render: function (h, params) {
+                    var functionList = [];
+                    //执行
+                    var downfile = h('Button', {
+                        props: {
+                            type: 'primary',
+                            size: 'small',
+                            icon: 'ios-play'
+                        },
+                        style: {
+                            marginRight: '8px'
+                        },
+                        on: {
+                            click: function () {
+                                //vm.downfile(params.row.fileuser,params.row.filename, params.row.filepath);
+                                var url = '/file/downfile?filename=' + params.row.filename + '&filepath=' + params.row.fileuser + "/" + params.row.filepath;
+                                window.open(url);
+                            }
+                        }
+                    }, '下载');
+                    functionList.push(downfile);
+                    // 返回方法集合
+                    return h('div', functionList);
+
+                    /*
                     var url = '/file/downfile?filename=' + params.row.filename + '&filepath=' + params.row.fileuser + "/" + params.row.filepath;
                     return h('a', {
                         props: {
@@ -70,7 +94,7 @@
                         attrs: {
                             href: url
                         }
-                    }, "下载");
+                    }, "下载");*/
                 },
             }],
             FileData: []

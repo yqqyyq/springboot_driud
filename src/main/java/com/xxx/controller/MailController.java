@@ -16,8 +16,13 @@ public class MailController {
 	private SendMailService sendMailService;
 
 	@PostMapping("/list")
-	public Result find(String subject) {
+	public Result find(String subject,Integer pageNo, Integer pageSize) {
 		return sendMailService.findBySubject(subject);
+	}
+
+	@PostMapping("/listpage")
+	public Result findpage(String subject,Integer pageNo, Integer pageSize) {
+		return sendMailService.findBySubjectPage(subject,pageNo,pageSize);
 	}
 
 	@PostMapping("/send")

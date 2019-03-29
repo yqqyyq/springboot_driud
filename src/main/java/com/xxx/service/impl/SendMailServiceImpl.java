@@ -1,10 +1,12 @@
 package com.xxx.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xxx.dao.OaEmailDao;
 import com.xxx.mail.Email;
-import com.xxx.service.SendMailService;
 import com.xxx.pojo.OaEmailPojo;
 import com.xxx.quartz.Result;
+import com.xxx.service.SendMailService;
 import com.xxx.utils.WordDefined;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -115,10 +117,10 @@ public class SendMailServiceImpl implements SendMailService {
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getContent(), true);
 
-            FileSystemResource file=null;
-            String filepath=WordDefined.MAIL_IMG_PATH;
-            for(String filename:mail.getFile()){
-                file= new FileSystemResource(new File(filepath+filename));
+            FileSystemResource file = null;
+            String filepath = WordDefined.MAIL_IMG_PATH;
+            for (String filename : mail.getFile()) {
+                file = new FileSystemResource(new File(filepath + filename));
                 String fileName = file.getFilename();
                 helper.addAttachment(fileName, file);
             }
@@ -137,7 +139,7 @@ public class SendMailServiceImpl implements SendMailService {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(whoAmI,"yqqyyq");
+            helper.setFrom(whoAmI, "yqqyyq");
             helper.setTo(mail.getEmail());
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getContent(), true);
@@ -152,14 +154,14 @@ public class SendMailServiceImpl implements SendMailService {
 
             //可以添加多个图片
             File file = null;
-            FileSystemResource resource=null;
-            String filepath=WordDefined.MAIL_IMG_PATH;
-            String imgId="";
-            for(int i=0;i<mail.getFile().length;i++){
-                String filename=mail.getFile()[i];
-                imgId="imgId"+(i+1);
-                file = new File(filepath+filename);
-                resource= new FileSystemResource(file);
+            FileSystemResource resource = null;
+            String filepath = WordDefined.MAIL_IMG_PATH;
+            String imgId = "";
+            for (int i = 0; i < mail.getFile().length; i++) {
+                String filename = mail.getFile()[i];
+                imgId = "imgId" + (i + 1);
+                file = new File(filepath + filename);
+                resource = new FileSystemResource(file);
                 helper.addInline(imgId, resource);
             }
 
@@ -175,13 +177,35 @@ public class SendMailServiceImpl implements SendMailService {
 
     @Override
     public Result listMail(Email mail) {
-        List<OaEmailPojo> list =  oaEmailDao.findAll();
+        List<OaEmailPojo> list = oaEmailDao.findAll();
         return Result.ok(list);
     }
 
     @Override
     public Result findBySubject(String subject) {
+
         List<OaEmailPojo> list = oaEmailDao.findBySubject(subject);
+        return Result.ok(list);
+    }
+
+    public Result findBySubjectPage(String subject, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo == null ? 1 : pageNo;
+        pageSize = pageSize == null ? 10 : pageSize;
+
+        Integer _start = (pageNo - 1) * pageSize;
+        Integer _end = pageNo * pageSize;
+
+        //PageHelper.startPage(pageNo, pageSize);
+
+        Map map=new HashMap();
+        map.put("subject",subject);
+        map.put("_start",_start);
+        map.put("_end",_end);
+        //List<OaEmailPojo> list = oaEmailDao.findBySubject(subject, _start, _end);
+        List<OaEmailPojo> list = oaEmailDao.findBySubjectPage(map);
+
+        //用PageInfo对结果进行包装
+        //PageInfo<OaEmailPojo> page = new PageInfo<OaEmailPojo>(list);
         return Result.ok(list);
     }
 

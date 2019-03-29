@@ -3,6 +3,7 @@ package com.xxx.dao;
 import com.xxx.pojo.OaEmailPojo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OaEmailDao {
     int deleteByPrimaryKey(Long id);
@@ -22,4 +23,6 @@ public interface OaEmailDao {
     List<OaEmailPojo> findAll();
 
     List<OaEmailPojo> findBySubject(String subject);
+
+    List<OaEmailPojo> findBySubjectPage(Map map);
 }

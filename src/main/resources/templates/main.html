@@ -62,9 +62,10 @@
                     <!-- 任务提醒 -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <!--<img th:src="@{'/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}" class="user-image"
+                            <!--<img th:src="@{'/user/pic/'+${session.user.userid}+'/'+${session.user.profilehead}+''}" class="user-image"
                                  th:alt="${session.user.userid}"/>-->
-                            [[${session.user.userid}]]
+                            [ [[${session.user.userid}]] ]
+                            <br>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">

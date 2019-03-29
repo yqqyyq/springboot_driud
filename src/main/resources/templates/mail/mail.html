@@ -9,7 +9,7 @@
 
     <script th:src="@{/static/plugins/jquery/jquery-3.3.1.min.js}" type="text/javascript"></script>
     <script th:src="@{/static/plugins/vue/vue.min.js}" type="text/javascript"></script>
-    <script th:src="@{/static/plugins/layer/layer.js}" type="text/javascript"></script>
+    <script th:src="@{/static/plugins/layer_shtml/layer.js}" type="text/javascript"></script>
     <script th:src="@{/static/plugins/iview/iview.min.js}" type="text/javascript"></script>
     <script th:src="@{/static/plugins/common.js}" type="text/javascript"></script>
 </head>
@@ -26,7 +26,7 @@
     <template>
         <i-table border :content="self" :columns="tableTitle" :data="MailData"></i-table>
         <br>
-        <!-- <Page :current="mail.pageNumber" :total="total" :page-size="mail.pageSize"  @on-change="changePage" @on-page-size-change="changePageSize" show-elevator show-sizer show-total></Page> -->
+        <Page :total="pageTotal" :current="pageNo" :page-size="pageSize"  @on-change="changePage" @on-page-size-change="changePageSize" show-elevator show-sizer show-total></Page>
     </template>
 </div>
 <script type="text/javascript">
@@ -36,6 +36,10 @@
             mail: {
                 subject: ""
             },
+            pageTotal: 10,  //数据总数
+            pageNo: 1,  //初始页
+            pageSize: 10,  //每页条数
+            dataArr :[],   //页面显示的数组
             tableTitle: [{
                 key: "receiveEmail",
                 title: "接收人邮箱",
@@ -44,6 +48,17 @@
                 key: "subject",
                 title: "主题",
                 width: ""
+            }, {
+                key: "template",
+                title: "模板",
+                width: ""
+            }, {
+                key: "sendTime",
+                title: "发送时间",
+                width: "",
+                render: function (h, params) {
+                    return h('div', new Date(this.row.sendTime).Format('yyyy-MM-dd'));
+                }
             }, {
                 key: "content",
                 title: "发送内容",
@@ -65,25 +80,13 @@
                                 vm.see();
                                 vm.msg = params.row.content;
                             }
-
                         }
                     }, '查看');
                     functionList.push(see);
                     // 返回方法集合
                     return h('div', functionList);
                 },
-            }, {
-                key: "template",
-                title: "模板",
-                width: ""
-            }, {
-                key: "sendTime",
-                title: "发送时间",
-                width: "",
-                render: function (h, params) {
-                    return h('div', new Date(this.row.sendTime).Format('yyyy-MM-dd'));
-                }
-            },],
+            }],
             MailData: []
         },
         methods: {
@@ -94,7 +97,12 @@
                     type: "post",
                     data: {'subject': this.mail.subject, "pageNo": this.pageNo, 'pageSize': this.pageSize},
                     success: function (result) {
-                        vm.MailData = result.msg;
+                        //alert(result.msg);
+                        vm.pageTotal = result.msg.length;
+                        var _start = ( vm.pageNo - 1 ) * vm.pageSize;  //pageNum 第几页  pageSize:每页几条数据
+                        var _end = vm.pageNo * vm.pageSize;
+                        vm.dataArr = result.msg.slice(_start,_end);
+                        vm.MailData=vm.dataArr;
                     }
                 });
             },
@@ -117,7 +125,7 @@
             },
             initFormatter() {
                 Date.prototype.Format = function (fmt) {
-                    let o = {
+                    var o = {
                         "M+": this.getMonth() + 1,                 //月份
                         "d+": this.getDate(),                    //日
                         "h+": this.getHours(),                   //小时
@@ -133,6 +141,28 @@
                             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                     return fmt;
                 }
+            },
+            changePage: function (value) {
+                this.pageNo = value;
+                $.ajax({
+                    url: "/mail/listpage",
+                    type: "post",
+                    data: {'subject': this.mail.subject, "pageNo": this.pageNo, 'pageSize': this.pageSize},
+                    success: function (result) {
+                        vm.MailData=result.msg;
+                    }
+                });
+            },
+            changePageSize: function (value) {
+                this.pageSize = value;
+                $.ajax({
+                    url: "/mail/listpage",
+                    type: "post",
+                    data: {'subject': this.mail.subject, "pageNo": this.pageNo, 'pageSize': this.pageSize},
+                    success: function (result) {
+                        vm.MailData=result.msg;
+                    }
+                });
             }
         },
         created: function () {

@@ -146,4 +146,24 @@
     </trim>
     order by send_time desc
   </select>
+
+  <sql id="queryBySujectPageSQL">
+    <if test="subject != null and subject !='' ">
+      and subject like concat('%',#{subject},'%')
+    </if>
+  </sql>
+
+  <select id="findBySubjectPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from oa_email
+    <trim prefix="where" prefixOverrides="and | or">
+      <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
+      <include refid="queryBySujectPageSQL" />
+    </trim>
+    order by send_time desc
+    LIMIT #{_start},#{_end}
+  </select>
 </mapper>
