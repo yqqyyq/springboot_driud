@@ -1,6 +1,6 @@
-package com.xxx.upload.impl;
+package com.xxx.service.impl;
 
-import com.xxx.upload.TokenService;
+import com.xxx.service.TokenService;
 import com.xxx.utils.TokenUtil;
 import com.xxx.utils.NetUtil;
 import com.xxx.utils.WordDefined;

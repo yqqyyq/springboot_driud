@@ -29,7 +29,6 @@ CREATE TABLE `chat_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `oa_email`;
-
 CREATE TABLE `oa_email` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `receive_email` varchar(500) NOT NULL COMMENT '接收人邮箱(多个逗号分开)',

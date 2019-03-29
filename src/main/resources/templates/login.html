@@ -1,13 +1,16 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="icon" href="/static/foc/index.ico" type="image/x-icon" />
-    <link href="/static/source/css/login.css" rel='stylesheet' type='text/css'/>
-    <script src="/static/plugins/jquery/jquery-2.1.4.min.js"></script>
-    <script src="/static/plugins/layer/layer.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WebChat | Login</title>
+    <link th:href="@{/static/foc/index.ico}" type="image/x-icon" rel="icon"/>
+    <link th:href="@{/static/source/css/login.css}" type='text/css' rel='stylesheet'/>
+    <script th:src="@{/static/plugins/jquery/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{/static/plugins/layer/layer.js}"></script>
+    <script th:src="@{/static/plugins/laypage/laypage.js}"></script>
 </head>
 <body>
-
 <h1>WebChat</h1>
 <div class="login-form">
     <div class="close"></div>
@@ -17,8 +20,8 @@
         <label class="lbl-3"></label>
     </div>
     <div class="clear"></div>
-    <div class="avtar"><img src="/static/source/img/adm.png"/></div>
-    <form id="login-form" action="./login" method="post" onsubmit="return checkLoginForm()">
+    <div class="avtar"><img th:src="@{/static/source/img/adm.png}"/></div>
+    <form id="login-form" th:action="@{/login}" method="post" onsubmit="return checkLoginForm()">
         <div class="key">
             <input type="text" id="username" name="userid" placeholder="请输入账号">
         </div>
@@ -34,11 +37,18 @@
 
 <script>
     $(function () {
-        var error="[[${error}]]";
+        var time = "[[${param.timeout}]]";
+        if (time) {
+            layer.msg('连接超时,请重新登陆!', {
+                offset: 0,
+                shift: 6
+            });
+        }
+        var error = "[[${error}]]";
         if (error) {
             $('#submit').attr('value', error).css('background', 'red');
         }
-        var messgae="[[${message}]]";
+        var messgae = "[[${message}]]";
         if (messgae) {
             layer.msg(messgae, {
                 offset: 0,

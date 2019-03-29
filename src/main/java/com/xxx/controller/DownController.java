@@ -24,9 +24,9 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/")
-public class FileController {
+public class DownController {
 
-    private static Logger logger = Logger.getLogger(FileController.class);
+    private static Logger logger = Logger.getLogger(DownController.class);
 
     @Autowired
     private FileLogService fileLogService;

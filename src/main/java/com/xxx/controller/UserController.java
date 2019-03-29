@@ -31,10 +31,6 @@ public class UserController {
 
     /**
      * 获取个人头像路径
-     * @param userid
-     * @param request
-     * @param response
-     * @return
      */
     @RequestMapping("/head/{userid}")
     @ResponseBody
@@ -45,8 +41,6 @@ public class UserController {
 
     /**
      * 跳转到个人信息页面
-     * @param userid
-     * @return
      */
     @RequestMapping(value = "/info/{userid}", method = RequestMethod.GET)
     public ModelAndView toInformation(@PathVariable("userid") String userid){
@@ -58,8 +52,6 @@ public class UserController {
 
     /**
      * 显示个人信息编辑页面
-     * @param userid
-     * @return
      */
     @RequestMapping(value = "/config/{userid}")
     public ModelAndView setting(@PathVariable("userid") String userid){
@@ -71,10 +63,6 @@ public class UserController {
 
     /**
      * 更新用户个人信息
-     * @param userid
-     * @param user
-     * @param request
-     * @return
      */
     @RequestMapping(value = "/update/{userid}", method = RequestMethod.POST)
     public String updateUser(@PathVariable("userid") String userid, HttpSession session, UserPojo user, RedirectAttributes attributes, HttpServletRequest request){
@@ -95,13 +83,7 @@ public class UserController {
     }
 
     /**
-     * 修改密码
-     * @param userid
-     * @param oldpass
-     * @param newpass
-     * @param attributes
-     * @param request
-     * @return
+     * 修改密码s
      */
     @RequestMapping(value = "/pass/{userid}", method = RequestMethod.POST)
     public String updateUserPassword(@PathVariable("userid") String userid,String oldpass, String newpass,HttpSession session, RedirectAttributes attributes,HttpServletRequest request){
