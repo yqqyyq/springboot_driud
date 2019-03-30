@@ -13,44 +13,25 @@ import java.util.Date;
 public class OaEmailPojo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * 自增主键
-	 */
+
 	private Long id;
 	
-	/**
-	 * 接收人邮箱(多个逗号分开)
-	 */
 	private String receiveEmail;
-	
-	/**
-	 * 主题
-	 */
+
 	private String subject;
 	
-	/**
-	 * 发送内容
-	 */
 	private String content;
-	
-	/**
-	 * 模板
-	 */
+
 	private String template;
-	
-	/**
-	 * 发送时间
-	 */
+
 	private Timestamp sendTime;
-	
 
 	public OaEmailPojo() {
 		super();
 	}
 
 	public OaEmailPojo(Email mail) {
-		this.receiveEmail = Arrays.toString(mail.getEmail());
+		this.receiveEmail = Arrays.toString(mail.getReceiveMail());
 		this.subject = mail.getSubject();
 		this.content = mail.getContent();
 		this.template = mail.getTemplate();

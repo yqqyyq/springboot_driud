@@ -128,13 +128,13 @@
     from oa_email order by send_time desc
   </select>
 
-  <sql id="queryBySujectSQL">
+  <sql id="queryByReceiveEmailSQL">
     <if test="_parameter != null and _parameter !='' ">
-      and subject like concat('%',#{subject},'%')
+      and receive_email like concat('%',#{receiveEmail},'%')
     </if>
   </sql>
 
-  <select id="findBySubject" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+  <select id="findByReceiveEmail" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List" />
     ,
@@ -142,18 +142,18 @@
     from oa_email
     <trim prefix="where" prefixOverrides="and | or">
       <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
-      <include refid="queryBySujectSQL" />
+      <include refid="queryByReceiveEmailSQL" />
     </trim>
     order by send_time desc
   </select>
 
-  <sql id="queryBySujectPageSQL">
-    <if test="subject != null and subject !='' ">
-      and subject like concat('%',#{subject},'%')
+  <sql id="queryByReceiveEmailPageSQL">
+    <if test="receiveEmail != null and receiveEmail !='' ">
+      and receive_email like concat('%',#{receiveEmail},'%')
     </if>
   </sql>
 
-  <select id="findBySubjectPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+  <select id="findByReceiveEmailPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
     ,
@@ -161,7 +161,7 @@
     from oa_email
     <trim prefix="where" prefixOverrides="and | or">
       <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
-      <include refid="queryBySujectPageSQL" />
+      <include refid="queryByReceiveEmailPageSQL" />
     </trim>
     order by send_time desc
     LIMIT #{_start},#{_end}

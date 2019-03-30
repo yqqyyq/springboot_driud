@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xxx.dao.IaEmailDao">
+    <resultMap id="BaseResultMap" type="com.xxx.pojo.IaEmailPojo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="send_email" property="sendEmail" jdbcType="VARCHAR"/>
+        <result column="receive_email" property="receiveEmail" jdbcType="VARCHAR"/>
+        <result column="subject" property="subject" jdbcType="VARCHAR"/>
+        <result column="send_time" property="sendTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="ResultMapWithBLOBs" type="com.xxx.pojo.IaEmailPojo" extends="BaseResultMap">
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, send_email ,receive_email, subject, send_time
+  </sql>
+    <sql id="Blob_Column_List">
+    content
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from ia_email
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ia_email
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.xxx.pojo.IaEmailPojo">
+    insert into ia_email (id, send_email, receive_email, subject, send_time, content)
+    values (#{id,jdbcType=BIGINT}, #{sendEmail,jdbcType=VARCHAR},#{receiveEmail,jdbcType=VARCHAR},
+      #{subject,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xxx.pojo.IaEmailPojo">
+        insert into ia_email
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="receiveEmail != null">
+                receive_email,
+            </if>
+            <if test="subject != null">
+                subject,
+            </if>
+            <if test="sendEmail != null">
+                send_email,
+            </if>
+            <if test="sendTime != null">
+                send_time,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="receiveEmail != null">
+                #{receiveEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="sendEmail != null">
+                #{sendEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTime != null">
+                #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xxx.pojo.IaEmailPojo">
+        update ia_email
+        <set>
+            <if test="receiveEmail != null">
+                receive_email = #{receiveEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="sendEmail != null">
+                send_email = #{sendEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="sendTime != null">
+                send_time = #{sendTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xxx.pojo.IaEmailPojo">
+    update ia_email
+    set receive_email = #{receiveEmail,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      send_email = #{sendEmail,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xxx.pojo.IaEmailPojo">
+    update ia_email
+    set receive_email = #{receiveEmail,jdbcType=VARCHAR},
+      subject = #{subject,jdbcType=VARCHAR},
+      send_email = #{sendEmail,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="findAll" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from ia_email order by send_time desc
+    </select>
+
+    <sql id="queryBySendEmailSQL">
+        <if test="_parameter != null and _parameter !='' ">
+            and send_email like concat('%',#{sendEmail},'%')
+        </if>
+    </sql>
+
+    <select id="findBySendEmail" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from ia_email
+        <trim prefix="where" prefixOverrides="and | or">
+            <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
+            <include refid="queryBySendEmailSQL"/>
+        </trim>
+        order by send_time desc
+    </select>
+
+    <sql id="queryBySendEmailPageSQL">
+        <if test="sendEmail != null and sendEmail !='' ">
+            and send_email like concat('%',#{sendEmail},'%')
+        </if>
+    </sql>
+
+    <select id="findBySendEmailPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from ia_email
+        <trim prefix="where" prefixOverrides="and | or">
+            <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
+            <include refid="queryBySendEmailPageSQL"/>
+        </trim>
+        order by send_time desc
+        LIMIT #{_start},#{_end}
+    </select>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into ia_email (id, send_email, receive_email, subject, send_time, content)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=BIGINT}, #{item.sendEmail,jdbcType=VARCHAR}, #{item.receiveEmail,jdbcType=VARCHAR}, #{item.subject,jdbcType=VARCHAR},#{item.sendTime,jdbcType=TIMESTAMP}, #{item.content,jdbcType=LONGVARCHAR})
+        </foreach>
+    </insert>
+</mapper>

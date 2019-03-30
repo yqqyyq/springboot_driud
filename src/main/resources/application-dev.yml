@@ -100,3 +100,10 @@ spring:
           starttls:
             enable: true
             required: true
+    # 自定义接收邮件配置
+    receive:
+      protocol: pop3
+      port: 110
+      servicepath: pop3.163.com
+      username: yqqyyq@163.com
+      password: xxx

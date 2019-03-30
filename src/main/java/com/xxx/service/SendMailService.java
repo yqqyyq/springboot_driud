@@ -17,7 +17,7 @@ public interface SendMailService {
 
     Result listMail(Email mail);
 
-    Result findBySubject(String subject);
+    Result findByReceiveEmail(String receiveEmail);
 
-    Result findBySubjectPage(String subject,Integer pageNo,Integer pageSize);
+    Result findByReceiveEmailPage(String receiveEmail,Integer pageNo,Integer pageSize);
 }

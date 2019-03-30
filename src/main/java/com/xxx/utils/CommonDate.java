@@ -32,6 +32,10 @@ public class CommonDate {
         return time;
     }
 
+    public static String transferDate(Date date){
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+    }
+
     /**
      * 获取当前时间的时间戳
      * @return Unix时间戳

@@ -10,6 +10,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * 启动是一次性任务
+ */
 @Component
 public class TaskRunner implements ApplicationRunner{
     

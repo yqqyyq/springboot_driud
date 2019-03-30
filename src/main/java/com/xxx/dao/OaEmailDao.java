@@ -22,7 +22,7 @@ public interface OaEmailDao {
 
     List<OaEmailPojo> findAll();
 
-    List<OaEmailPojo> findBySubject(String subject);
+    List<OaEmailPojo> findByReceiveEmail(String receiveEmail);
 
-    List<OaEmailPojo> findBySubjectPage(Map map);
+    List<OaEmailPojo> findByReceiveEmailPage(Map map);
 }

@@ -51,7 +51,7 @@ public class SendMailServiceImpl implements SendMailService {
         SimpleMailMessage message = new SimpleMailMessage();
         try {
             message.setFrom(whoAmI);
-            message.setTo(mail.getEmail());
+            message.setTo(mail.getReceiveMail());
             message.setSubject(mail.getSubject());
             message.setText(mail.getContent());
             mailSender.send(message);
@@ -69,7 +69,7 @@ public class SendMailServiceImpl implements SendMailService {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(whoAmI);
-            helper.setTo(mail.getEmail());
+            helper.setTo(mail.getReceiveMail());
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getContent(), true);
             mailSender.send(message);
@@ -88,7 +88,7 @@ public class SendMailServiceImpl implements SendMailService {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             //这里可以自定义发信名称
             helper.setFrom(whoAmI, "yqqyyq");
-            helper.setTo(mail.getEmail());
+            helper.setTo(mail.getReceiveMail());
             helper.setSubject(mail.getSubject());
             Map<String, Object> model = new HashMap<String, Object>();
             model.put("mail", mail);
@@ -113,7 +113,7 @@ public class SendMailServiceImpl implements SendMailService {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(whoAmI);
-            helper.setTo(mail.getEmail());
+            helper.setTo(mail.getReceiveMail());
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getContent(), true);
 
@@ -140,7 +140,7 @@ public class SendMailServiceImpl implements SendMailService {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(whoAmI, "yqqyyq");
-            helper.setTo(mail.getEmail());
+            helper.setTo(mail.getReceiveMail());
             helper.setSubject(mail.getSubject());
             helper.setText(mail.getContent(), true);
 
@@ -182,13 +182,13 @@ public class SendMailServiceImpl implements SendMailService {
     }
 
     @Override
-    public Result findBySubject(String subject) {
-
-        List<OaEmailPojo> list = oaEmailDao.findBySubject(subject);
+    public Result findByReceiveEmail(String receiveEmail) {
+        List<OaEmailPojo> list = oaEmailDao.findByReceiveEmail(receiveEmail);
         return Result.ok(list);
     }
 
-    public Result findBySubjectPage(String subject, Integer pageNo, Integer pageSize) {
+    @Override
+    public Result findByReceiveEmailPage(String receiveEmail, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == null ? 1 : pageNo;
         pageSize = pageSize == null ? 10 : pageSize;
 
@@ -198,11 +198,11 @@ public class SendMailServiceImpl implements SendMailService {
         //PageHelper.startPage(pageNo, pageSize);
 
         Map map=new HashMap();
-        map.put("subject",subject);
+        map.put("receiveEmail",receiveEmail);
         map.put("_start",_start);
         map.put("_end",_end);
-        //List<OaEmailPojo> list = oaEmailDao.findBySubject(subject, _start, _end);
-        List<OaEmailPojo> list = oaEmailDao.findBySubjectPage(map);
+        //List<OaEmailPojo> list = oaEmailDao.findBySubject(receiveEmail, _start, _end);
+        List<OaEmailPojo> list = oaEmailDao.findByReceiveEmailPage(map);
 
         //用PageInfo对结果进行包装
         //PageInfo<OaEmailPojo> page = new PageInfo<OaEmailPojo>(list);

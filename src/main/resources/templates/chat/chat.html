@@ -238,9 +238,9 @@
         var isSef = userid == message.from.userid ? "am-comment-flip" : "";   //如果是自己则显示在右边,他人信息显示在左边
 
         var pic;
-        var url = "/head/" + message.from.userid;
+        var url = "/user/head/" + message.from.userid;
         $.getJSON(url, function (data) {
-            pic = "/pic/" + data.userid + "/" + data.profilehead;
+            pic = "/user/pic/" + data.userid + "/" + data.profilehead;
 
             var html = "<li class=\"am-comment " + isSef + " am-comment-primary\"><a href=\"#link-to-user-home\"><img width=\"48\" height=\"48\" class=\"am-comment-avatar\" alt=\"\" src=\"" + pic + "\"></a><div class=\"am-comment-main\">\n" +
                 "<header class=\"am-comment-hd\"><div class=\"am-comment-meta\">   <a class=\"am-comment-author\" href=\"#link-to-user\">" + message.from.nickname + "</a> 发表于<time> " + message.time + "</time></div></header><div class=\"am-comment-bd\"> <p>" + message.content + "</p></div></div></li>";

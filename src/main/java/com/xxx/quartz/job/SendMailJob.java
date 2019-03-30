@@ -29,7 +29,7 @@ public class SendMailJob implements Job, Serializable {
 
 
         Email mail = new Email();
-        mail.setEmail(new String[]{"yqqyyq@163.com"
+        mail.setReceiveMail(new String[]{"yqqyyq@163.com"
                 /*, "1280239780@qq.com"
                 , "dongowned@163.com"
                 , "hsdyym123@163.com"
