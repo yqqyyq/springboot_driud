@@ -30,7 +30,8 @@ public class SendMailJob implements Job, Serializable {
 
         Email mail = new Email();
         mail.setReceiveMail(new String[]{"yqqyyq@163.com"
-                /*, "1280239780@qq.com"
+                /*,"865707106@qq.com"
+                , "1280239780@qq.com"
                 , "dongowned@163.com"
                 , "hsdyym123@163.com"
                 , "longshun19941229@163.com"*/});
