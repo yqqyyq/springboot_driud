@@ -42,8 +42,8 @@ public class ReceiveMailJob implements Job, Serializable {
                 logger.info("succ|"+size);
             }
         }
-        logger.info("Job end Class: " + jobDetail.getJobClass());
-        logger.info("start :" + CommonDate.getTime24());
+        logger.info("Job End Class: " + jobDetail.getJobClass());
+        logger.info("end :" + CommonDate.getTime24());
         //测试效果 保证上一个任务执行完后，再去执行下一个任务
         try {
             Thread.sleep(10000);

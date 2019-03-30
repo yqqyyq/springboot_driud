@@ -1,4 +1,4 @@
-package com.xxx.quartz;
+package com.xxx.exception;
 
 public class QuartzException extends RuntimeException {
 

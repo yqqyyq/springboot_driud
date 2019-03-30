@@ -2,7 +2,7 @@
 package com.xxx.service.impl;
 
 
-import com.xxx.quartz.QuartzException;
+import com.xxx.exception.QuartzException;
 import com.xxx.service.TaskService;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.quartz.*;

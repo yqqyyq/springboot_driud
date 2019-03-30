@@ -24,7 +24,7 @@ spring:
   # 邮件模板
   freemarker:
     template-loader-path: classpath:/static/mail/
-    suffix: .flt
+    suffix: .ftl
     enabled: true
     cache: false
     charset: UTF-8

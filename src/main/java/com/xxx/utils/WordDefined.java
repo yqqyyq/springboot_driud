@@ -39,4 +39,8 @@ public class WordDefined {
 
     public static final String MAIL_IMG_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/mail/source/img/";
 
+    public static final String clasName = "Main";
+    public static final String classPath = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/java/classes/";
+    public static final String excuteMainMethodName = "main";
+
 }

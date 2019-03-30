@@ -16,7 +16,7 @@ public class SendMailJob implements Job, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    private SendMailService mailService;
+    private SendMailService sendMailService;
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -27,7 +27,6 @@ public class SendMailJob implements Job, Serializable {
         //取得job开始时间
         logger.info("fired at " + context.getFireTime());
 
-
         Email mail = new Email();
         mail.setReceiveMail(new String[]{"yqqyyq@163.com"
                 /*,"865707106@qq.com"
@@ -37,9 +36,9 @@ public class SendMailJob implements Job, Serializable {
                 , "longshun19941229@163.com"*/});
         mail.setSubject("for-mail");
         mail.setContent("<br>多学习!<br>多实践!<br>多反思!<br>");
-        mail.setTemplate("yqqyyq.flt");
+        mail.setTemplate("yqqyyq.ftl");
         mail.setFile(new String[]{"icon.png", "yqqyyq.jpeg"});
-        mailService.sendInlinResourceMail(mail);
+        sendMailService.sendInlinResourceMail(mail);
 
         //测试效果 保证上一个任务执行完后，再去执行下一个任务
         try {
