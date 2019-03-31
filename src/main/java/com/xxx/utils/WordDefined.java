@@ -43,4 +43,5 @@ public class WordDefined {
     public static final String classPath = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/java/classes/";
     public static final String excuteMainMethodName = "main";
 
+    public static final String EXCEL_PATH = "/Users/yuqi/ideaspace/datasource/springboot_driud/src/main/resources/static/excel/";
 }

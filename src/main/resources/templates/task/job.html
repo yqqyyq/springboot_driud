@@ -27,6 +27,8 @@
             <i-input v-model="quartz.jobname" placeholder="输入任务名称" style="width: 200px"></i-input>
             <i-button type="primary" @click="search()" icon="ios-search">搜索</i-button>
             <i-button type="primary" @click="empty()" icon="ios-close-empty">清空</i-button>
+            <!--<i-button type="primary" @click="empty()" icon="ios-close-empty">清空</i-button>-->
+            <i-button type="primary" @click="exportExcel()" icon="ios-cloud-download">下载</i-button>
             <i-button type="info" style="float: right;" @click="add()" icon="person-add">新增</i-button>
         </div>
 
@@ -228,6 +230,20 @@
                     }
                 });
             },
+            exportExcel: function () {
+                /*$.ajax({
+                    url: "/excel/job/out",
+                    type: "get",
+                    //data: {'jobName': this.quartz.jobname},
+                    success: function (result) {
+                        //vm.JobData = result.msg;
+                        //alert(result);
+                        //window.open(result);
+                    }
+                });*/
+                var url = '/excel/job/out'
+                window.open(url);
+            },
             //新建任务(略简单)
             add: function () {
                 dialogOpen({
@@ -284,8 +300,7 @@
             this.quartz.jobname = '';
             this.search();
         }
-    })
-
+    });
 </script>
 </body>
 </html>
