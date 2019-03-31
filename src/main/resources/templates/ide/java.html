@@ -19,7 +19,7 @@
 <form role="form">
     <div class="form-group" style="padding: 20px">
         <label>编码区</label>
-        <textarea id="inputArea" class="form-control" rows="15">
+        <textarea id="inputArea" class="form-control" rows="10">
 public class Main {
     public static void main(String[] args) {
         System.out.println("hello world!");
@@ -27,26 +27,23 @@ public class Main {
 }
         </textarea>
     </div>
-    <div style="padding: 20px">
+    <div style="padding: 20px;display: none">
         <label class="form-inline">
             <input type="checkbox" id="timeLimitCheckBox" value="timeLimit" onclick="timeLimitClick()"> 限时
             <input type="text" id="timeLimitInput" style="display: none" class="form-control"
                    placeholder="1000(单位：毫秒,默认1S)">
         </label>
     </div>
-    <div style="padding: 20px">
+    <div style="padding: 20px;display: none">
         <label class="form-inline">
             <input type="checkbox" id="argsCheckBox" onclick="argsCheckBoxClick()"> 输入参数
             <input type="text" id="argsInput" style="display: none" class="form-control"
                    placeholder="在此输入args参数,多个以空格分隔">
         </label>
     </div>
-
     <button onclick="doSubmit()" type="button" style="width: 200px" class="btn btn-success center-block"
             aria-hidden="true">提交
     </button>
-    <br><br><br>
-
     <div style="padding: 20px">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -56,7 +53,6 @@ public class Main {
             </div>
         </div>
     </div>
-
     <div style="padding: 20px">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -90,7 +86,9 @@ public class Main {
         }
         var data = {"javaSource": $("#inputArea").val(), "excuteTimeLimit": excuteTimeLimit, "excuteArgs": excuteArgs};
         $.post(url, data, function (result) {
-            layer.msg("结果:" + result.message);
+            layer.msg("结果:" + result.message, {
+                offset: 0
+            });
             //设置执行信息
             $("#complieInfoDiv").html("运行耗时(毫秒)：" + result.excuteDurationTime + "<br>编译状态：" + result.message);
             //设置执行结果
