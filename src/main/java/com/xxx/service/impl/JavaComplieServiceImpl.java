@@ -46,9 +46,6 @@ public class JavaComplieServiceImpl implements JavaComplieService {
 
     /**
      * 加载CLASS
-     *
-     * @param clasName 类名
-     * @return class文件
      */
     public Class loadClass(String clasName) throws Exception {
 //        Class<?> clazz = Class.forName("Main");

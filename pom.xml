@@ -232,6 +232,8 @@
                     <verbose>true</verbose>
                     <!-- 代表生成的内容覆盖已有的内容 -->
                     <overwrite>true</overwrite>
+                    <!--该配置为热部署必须的-->
+                    <!--<fork>true</fork>-->
                 </configuration>
             </plugin>
         </plugins>
