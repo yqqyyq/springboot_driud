@@ -40,9 +40,8 @@ public class FileLogServiceImpl implements FileLogService {
     }
 
     @Override
-    public Result selectByFileName(String filename) {
-        List<FileLogPojo> list = fileLogDao.selectByFileName(filename);
-        return Result.ok(list);
+    public List<FileLogPojo>  selectByFileName(String filename) {
+        return fileLogDao.selectByFileName(filename);
     }
 
     @Override

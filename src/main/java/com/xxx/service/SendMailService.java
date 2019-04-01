@@ -1,7 +1,10 @@
 package com.xxx.service;
 
 import com.xxx.mail.Email;
+import com.xxx.pojo.OaEmailPojo;
 import com.xxx.quartz.Result;
+
+import java.util.List;
 
 public interface SendMailService {
 
@@ -17,7 +20,7 @@ public interface SendMailService {
 
     Result listMail(Email mail);
 
-    Result findByReceiveEmail(String receiveEmail);
+    List<OaEmailPojo> findByReceiveEmail(String receiveEmail);
 
-    Result findByReceiveEmailPage(String receiveEmail,Integer pageNo,Integer pageSize);
+    List<OaEmailPojo> findByReceiveEmailPage(String receiveEmail,Integer pageNo,Integer pageSize);
 }

@@ -182,13 +182,12 @@ public class SendMailServiceImpl implements SendMailService {
     }
 
     @Override
-    public Result findByReceiveEmail(String receiveEmail) {
-        List<OaEmailPojo> list = oaEmailDao.findByReceiveEmail(receiveEmail);
-        return Result.ok(list);
+    public List<OaEmailPojo> findByReceiveEmail(String receiveEmail) {
+        return oaEmailDao.findByReceiveEmail(receiveEmail);
     }
 
     @Override
-    public Result findByReceiveEmailPage(String receiveEmail, Integer pageNo, Integer pageSize) {
+    public List<OaEmailPojo> findByReceiveEmailPage(String receiveEmail, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == null ? 1 : pageNo;
         pageSize = pageSize == null ? 10 : pageSize;
 
@@ -202,11 +201,11 @@ public class SendMailServiceImpl implements SendMailService {
         map.put("_start",_start);
         map.put("_end",_end);
         //List<OaEmailPojo> list = oaEmailDao.findBySubject(receiveEmail, _start, _end);
-        List<OaEmailPojo> list = oaEmailDao.findByReceiveEmailPage(map);
+        return oaEmailDao.findByReceiveEmailPage(map);
 
         //用PageInfo对结果进行包装
         //PageInfo<OaEmailPojo> page = new PageInfo<OaEmailPojo>(list);
-        return Result.ok(list);
+        //return Result.ok(list);
     }
 
 }

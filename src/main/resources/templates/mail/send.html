@@ -21,6 +21,7 @@
         </template>
         <i-button type="primary" icon="ios-search" @click="search()">查询</i-button>
         <i-button type="primary" icon="refresh" @click="reload()">清空</i-button>
+        <i-button type="primary" @click="exportExcel()" icon="ios-cloud-download">下载</i-button>
     </div>
 
     <template>
@@ -163,6 +164,9 @@
                         vm.MailData=result.msg;
                     }
                 });
+            },exportExcel: function () {
+                var url = '/excel/sendmail/out?receiveEmail='+this.mail.receiveEmail+"";
+                window.open(url);
             }
         },
         created: function () {

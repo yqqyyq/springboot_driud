@@ -21,6 +21,7 @@
         </template>
         <i-button type="primary" icon="ios-search" @click="search()">查询</i-button>
         <i-button type="primary" icon="refresh" @click="reload()">清空</i-button>
+        <i-button type="primary" @click="exportExcel()" icon="ios-cloud-download">下载</i-button>
     </div>
 
     <template>
@@ -42,11 +43,11 @@
             dataArr :[],   //页面显示的数组
             tableTitle: [{
                 key: "sendEmail",
-                title: "发送人邮箱",
+                title: "发件人邮箱",
                 width: "",
             }, {
                 key: "receiveEmail",
-                title: "发送人邮箱",
+                title: "收件人邮箱",
                 width: "",
             },{
                 key: "subject",
@@ -163,6 +164,9 @@
                         vm.MailData=result.msg;
                     }
                 });
+            },exportExcel: function () {
+                var url = '/excel/receivemail/out?sendMail='+this.mail.sendMail+"";
+                window.open(url);
             }
         },
         created: function () {

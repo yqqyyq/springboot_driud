@@ -19,5 +19,5 @@ public interface FileLogService {
 
     Long selectByFileLog(FileLogPojo record);
 
-    Result selectByFileName(String filename);
+    List<FileLogPojo> selectByFileName(String filename);
 }

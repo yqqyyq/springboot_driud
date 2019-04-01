@@ -1,7 +1,6 @@
 package com.xxx.dao;
 
 import com.xxx.pojo.IaEmailPojo;
-import com.xxx.pojo.OaEmailPojo;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,7 @@ public interface IaEmailDao {
 
     int insertSelective(IaEmailPojo record);
 
-    OaEmailPojo selectByPrimaryKey(Long id);
+    IaEmailPojo selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(IaEmailPojo record);
 
@@ -21,11 +20,11 @@ public interface IaEmailDao {
 
     int updateByPrimaryKey(IaEmailPojo record);
 
-    List<OaEmailPojo> findAll();
+    List<IaEmailPojo> findAll();
 
-    List<OaEmailPojo> findBySendEmail(String sendEmail);
+    List<IaEmailPojo> findBySendEmail(String sendEmail);
 
-    List<OaEmailPojo> findBySendEmailPage(Map map);
+    List<IaEmailPojo> findBySendEmailPage(Map map);
 
     int insertBatch(List<IaEmailPojo> list);
 }

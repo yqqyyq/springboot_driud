@@ -1,5 +1,6 @@
 package com.xxx.controller;
 
+import com.xxx.pojo.FileLogPojo;
 import com.xxx.quartz.Result;
 import com.xxx.service.FileLogService;
 import com.xxx.upload.ConstantByProperties;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Description 用户登录和注销
@@ -34,7 +36,8 @@ public class DownController {
     @PostMapping("/listfile")
     @ResponseBody
     public Result list(String filename, Integer pageNo, Integer pageSize) {
-        return fileLogService.selectByFileName(filename);
+        List<FileLogPojo> list =fileLogService.selectByFileName(filename);
+        return Result.ok(list);
     }
 
     @RequestMapping(value = "/downfile")

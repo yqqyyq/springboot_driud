@@ -24,13 +24,12 @@ public class ReceiveMailServiceImpl implements ReceiveMailService {
 
 
     @Override
-    public Result findBySendEmail(String sendEmail) {
-        List<OaEmailPojo> list = iaEmailDao.findBySendEmail(sendEmail);
-        return Result.ok(list);
+    public List<IaEmailPojo> findBySendEmail(String sendEmail) {
+        return iaEmailDao.findBySendEmail(sendEmail);
     }
 
     @Override
-    public Result findBySendEmailPage(String sendEmail, Integer pageNo, Integer pageSize) {
+    public List<IaEmailPojo> findBySendEmailPage(String sendEmail, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == null ? 1 : pageNo;
         pageSize = pageSize == null ? 10 : pageSize;
 
@@ -42,8 +41,7 @@ public class ReceiveMailServiceImpl implements ReceiveMailService {
         map.put("_start",_start);
         map.put("_end",_end);
 
-        List<OaEmailPojo> list = iaEmailDao.findBySendEmailPage(map);
-        return Result.ok(list);
+        return iaEmailDao.findBySendEmailPage(map);
     }
 
     @Override

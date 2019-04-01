@@ -117,7 +117,7 @@
                 this.search();
             },
             exportExcel: function () {
-                var url = '/excel/file/out'
+                var url = '/excel/file/out?filename='+this.filelog.filename+"";
                 window.open(url);
             }
         },
