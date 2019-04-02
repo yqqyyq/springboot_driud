@@ -30,17 +30,18 @@ public class FileLogServiceImpl implements FileLogService {
         return fileLogDao.selectAll();
     }
 
-
+    @Override
     public List<FileLogPojo> selectInTime() {
         return fileLogDao.selectInTime();
     }
 
+    @Override
     public Long selectByFileLog(FileLogPojo record) {
         return fileLogDao.selectByFileLog(record);
     }
 
     @Override
-    public List<FileLogPojo>  selectByFileName(String filename) {
+    public List<FileLogPojo> selectByFileName(String filename) {
         return fileLogDao.selectByFileName(filename);
     }
 
