@@ -1,7 +1,6 @@
 spring:
   profiles:
     active: dev
-  
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -44,3 +43,10 @@ mybatis:
   # 输出SQL执行语句
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 自定义starter
+com:
+  yqqyyq:
+    enabled: true
+    name: yqqyyqxxx
+    hobby: code

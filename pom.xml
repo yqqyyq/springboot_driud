@@ -259,6 +259,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.yqqyyq</groupId>
+            <artifactId>yqqyyq-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
