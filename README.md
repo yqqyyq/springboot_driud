@@ -1,9 +1,9 @@
-# springboot_driud
+# springboot_druid
 * 囊括
 
 **springboot2.0**
 
-*driud*
+*druid*
 
 ***mybatis***
 
